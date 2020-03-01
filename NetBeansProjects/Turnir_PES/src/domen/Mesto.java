@@ -10,18 +10,19 @@ package domen;
  * @author Dule
  */
 public class Mesto {
+
     private Turnir turnir;
     private Igrac igrac;
+    private int redniBroj;
 
     public Mesto() {
     }
 
-    public Mesto(Turnir turnir, Igrac igrac) {
+    public Mesto(Turnir turnir, Igrac igrac, int redniBroj) {
         this.turnir = turnir;
         this.igrac = igrac;
+        this.redniBroj = redniBroj;
     }
-    
-    
 
     public Turnir getTurnir() {
         return turnir;
@@ -38,6 +39,14 @@ public class Mesto {
     public void setIgrac(Igrac igrac) {
         this.igrac = igrac;
     }
+
+    public int getRedniBroj() {
+        return redniBroj;
+    }
+
+    public void setRedniBroj(int redniBroj) {
+        this.redniBroj = redniBroj;
+    }
     
-    
+
 }

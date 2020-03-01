@@ -9,9 +9,22 @@ package domen;
  *
  * @author Dule
  */
-class Klub {
+public class Klub {
+
     private int id;
     private String naziv;
+    private Liga liga;
+    private double brojZvezdica;
+
+    public Klub() {
+    }
+
+    public Klub(int id, String naziv, Liga liga, double brojZvezdica) {
+        this.id = id;
+        this.naziv = naziv;
+        this.liga = liga;
+        this.brojZvezdica = brojZvezdica;
+    }
 
     public int getId() {
         return id;
@@ -29,10 +42,25 @@ class Klub {
         this.naziv = naziv;
     }
 
+    public Liga getLiga() {
+        return liga;
+    }
+
+    public void setLiga(Liga liga) {
+        this.liga = liga;
+    }
+
+    public double getBrojZvezdica() {
+        return brojZvezdica;
+    }
+
+    public void setBrojZvezdica(double brojZvezdica) {
+        this.brojZvezdica = brojZvezdica;
+    }
+
     @Override
     public String toString() {
         return naziv;
     }
-    
-    
+
 }

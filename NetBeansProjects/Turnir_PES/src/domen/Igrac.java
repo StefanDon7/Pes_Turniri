@@ -13,16 +13,16 @@ public class Igrac {
     private int id;
     private String ime;
     private String prezime;
-    private String datumRodjenja;
+    private String korisnickoIme;
 
     public Igrac() {
     }
 
-    public Igrac(int id, String ime, String prezime, String datumRodjenja) {
+    public Igrac(int id, String ime, String prezime, String korisnickoIme) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
-        this.datumRodjenja = datumRodjenja;
+        this.korisnickoIme = korisnickoIme;
     }
     
     public String getIme() {
@@ -41,12 +41,12 @@ public class Igrac {
         this.prezime = prezime;
     }
 
-    public String getDatumRodjenja() {
-        return datumRodjenja;
+    public String getKorisnickoIme() {
+        return korisnickoIme;
     }
 
-    public void setDatumRodjenja(String datumRodjenja) {
-        this.datumRodjenja = datumRodjenja;
+    public void setKorisnickoIme(String korisnickoIme) {
+        this.korisnickoIme = korisnickoIme;
     }
 
     public int getId() {
