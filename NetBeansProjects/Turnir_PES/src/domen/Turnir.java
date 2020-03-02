@@ -12,9 +12,19 @@ import java.util.Date;
  * @author Dule
  */
 public class Turnir {
+
     private int id;
     private String naziv;
     private Date datum;
+
+    public Turnir() {
+    }
+
+    public Turnir(int id, String naziv, Date datum) {
+        this.id = id;
+        this.naziv = naziv;
+        this.datum = datum;
+    }
 
     public int getId() {
         return id;
@@ -39,6 +49,5 @@ public class Turnir {
     public void setDatum(Date datum) {
         this.datum = datum;
     }
-    
-    
+
 }

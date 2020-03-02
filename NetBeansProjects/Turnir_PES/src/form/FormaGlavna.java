@@ -8,15 +8,22 @@ package form;
 import domen.Igrac;
 import domen.Klub;
 import domen.Liga;
+import domen.Turnir;
+import domen.Ucesnik;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import kontroler.Kontroler;
+import modeliTabela.ModelTabeleIgracaZaTurnir;
 
 /**
  *
  * @author Dule
  */
 public class FormaGlavna extends javax.swing.JFrame {
+    
+    modeliTabela.ModelTabeleIgracaZaTurnir mtizt = new ModelTabeleIgracaZaTurnir();
 
     /**
      * Creates new form FormaGlavna
@@ -27,6 +34,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         ucitajMiSveKlubove();
         ucitajMiSveIgrace();
         ucitajMiSveLige();
+        ucitajModelTabele();
     }
 
     /**
@@ -41,28 +49,30 @@ public class FormaGlavna extends javax.swing.JFrame {
         panelNapraviTurnir = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaIgracaNaTurniru = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         cmbIgrac = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         cmbKlub = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnKreirajTurnir = new javax.swing.JButton();
+        btnDodajIgracaZaTurnir = new javax.swing.JButton();
+        btnObrisiIgracaIzListeZaTurnir = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtNazivTurnira = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        txtIme = new javax.swing.JTextField();
+        txtPrezime = new javax.swing.JTextField();
+        txtNadimak = new javax.swing.JTextField();
+        btnNapraviIgraca = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        txtImeKluba = new javax.swing.JTextField();
+        btnNapraviKlub = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        spinerBrojZvezdica = new javax.swing.JSpinner();
         cmbLiga = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         panelStatistikaIgraca = new javax.swing.JPanel();
@@ -80,7 +90,7 @@ public class FormaGlavna extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaIgracaNaTurniru.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -91,7 +101,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaIgracaNaTurniru);
 
         jLabel1.setText("Igrac:");
 
@@ -101,11 +111,28 @@ public class FormaGlavna extends javax.swing.JFrame {
 
         cmbKlub.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Napravi turnir");
+        btnKreirajTurnir.setText("Napravi turnir");
+        btnKreirajTurnir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKreirajTurnirActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Dodaj");
+        btnDodajIgracaZaTurnir.setText("Dodaj");
+        btnDodajIgracaZaTurnir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajIgracaZaTurnirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Obrisi");
+        btnObrisiIgracaIzListeZaTurnir.setText("Obrisi");
+        btnObrisiIgracaIzListeZaTurnir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiIgracaIzListeZaTurnirActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Naziv turnira:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,8 +141,17 @@ public class FormaGlavna extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnObrisiIgracaIzListeZaTurnir, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDodajIgracaZaTurnir, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnKreirajTurnir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNazivTurnira, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -124,11 +160,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cmbIgrac, 0, 158, Short.MAX_VALUE)
-                                .addComponent(cmbKlub, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbKlub, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,13 +176,17 @@ public class FormaGlavna extends javax.swing.JFrame {
                     .addComponent(cmbKlub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnDodajIgracaZaTurnir)
+                    .addComponent(btnObrisiIgracaIzListeZaTurnir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(txtNazivTurnira, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnKreirajTurnir)
+                .addContainerGap())
         );
 
         jLabel3.setText("Ime:");
@@ -159,13 +195,12 @@ public class FormaGlavna extends javax.swing.JFrame {
 
         jLabel5.setText("Nadimak:");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jButton4.setText("Napravi igraca");
+        btnNapraviIgraca.setText("Napravi igraca");
+        btnNapraviIgraca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNapraviIgracaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -179,18 +214,18 @@ public class FormaGlavna extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNadimak, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnNapraviIgraca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,27 +234,32 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNadimak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(btnNapraviIgraca)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Ime kluba:");
 
-        jButton5.setText("Napravi klub");
+        btnNapraviKlub.setText("Napravi klub");
+        btnNapraviKlub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNapraviKlubActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Broj zvezdica");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(3.0d, 0.5d, 5.0d, 0.5d));
+        spinerBrojZvezdica.setModel(new javax.swing.SpinnerNumberModel(3.0d, 0.5d, 5.0d, 0.5d));
 
         cmbLiga.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -239,11 +279,11 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                        .addComponent(btnNapraviKlub, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
                     .addComponent(cmbLiga, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField4)
+                    .addComponent(txtImeKluba)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spinerBrojZvezdica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -253,17 +293,17 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtImeKluba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbLiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinerBrojZvezdica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnNapraviKlub)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -293,7 +333,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
@@ -421,7 +461,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelNapraviTurnir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 303, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelTabelaTurniri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,6 +473,82 @@ public class FormaGlavna extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDodajIgracaZaTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajIgracaZaTurnirActionPerformed
+        Igrac i = (Igrac) cmbIgrac.getSelectedItem();
+        Klub k = (Klub) cmbKlub.getSelectedItem();
+        Ucesnik u = new Ucesnik(i, k, null, mtizt.getRowCount() + 1);
+        mtizt.dodajUcesnika(u);
+    }//GEN-LAST:event_btnDodajIgracaZaTurnirActionPerformed
+    
+    private void btnObrisiIgracaIzListeZaTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
+        int broj = tabelaIgracaNaTurniru.getSelectedRow();
+        if (broj == -1) {
+            JOptionPane.showMessageDialog(this, "Selektujte igraca koji zelite da obrisete!");
+            return;
+        }
+        Ucesnik u = mtizt.getLista().get(broj);
+        mtizt.obirisIzTabele(u);
+    }//GEN-LAST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
+    
+    private void btnKreirajTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajTurnirActionPerformed
+        ArrayList<Ucesnik> lista = (ArrayList<Ucesnik>) mtizt.getLista();
+        String naziv = txtNazivTurnira.getText();
+        if (naziv.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Popunite polje naziv turnira!");
+            return;
+        }
+        int maxID = Kontroler.getInstance().vratiMiZaTurnirID();
+        Date d = new Date();
+        Turnir t = new Turnir(maxID, naziv, d);
+        txtNazivTurnira.setText("");
+        boolean uspesnoTurnir = Kontroler.getInstance().napraviTurnir(t);
+        for (Ucesnik ucesnik : lista) {
+            ucesnik.setTurnir(t);
+        }
+        boolean uspesnoUcesnici = Kontroler.getInstance().unesiUcesnike(lista);
+        if (uspesnoTurnir && uspesnoUcesnici) {
+            JOptionPane.showMessageDialog(this, "Uspesno napravljen turnir!");
+        } else {
+            JOptionPane.showMessageDialog(this, "GRESKA!");
+        }
+        
+    }//GEN-LAST:event_btnKreirajTurnirActionPerformed
+    
+    private void btnNapraviIgracaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviIgracaActionPerformed
+        String ime = txtIme.getText();
+        String prezime = txtPrezime.getText();
+        String nadimak = txtNadimak.getText();
+        Igrac i = new Igrac(-1, ime, prezime, nadimak);
+        txtIme.setText("");
+        txtPrezime.setText("");
+        txtNadimak.setText("");
+        boolean uspesno = Kontroler.getInstance().unesiIgraca(i);
+        if (uspesno) {
+            JOptionPane.showMessageDialog(this, "Uspesno napravljen igrac!");
+            cmbIgrac.addItem(i);
+            
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "GRESKA!");
+        
+    }//GEN-LAST:event_btnNapraviIgracaActionPerformed
+    
+    private void btnNapraviKlubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviKlubActionPerformed
+        String naziv = txtImeKluba.getText();
+        Liga l = (Liga) cmbLiga.getSelectedItem();
+        double brojZvezdica = (double) spinerBrojZvezdica.getValue();
+        Klub k = new Klub(-1, naziv, l, brojZvezdica);
+        txtImeKluba.setText("");
+        boolean uspesno = Kontroler.getInstance().unesiKlub(k);
+        if (uspesno) {
+            JOptionPane.showMessageDialog(this, "Uspesno napravljen klub!");
+            cmbKlub.addItem(k);
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "GRESKA!");
+        
+    }//GEN-LAST:event_btnNapraviKlubActionPerformed
 
     /**
      * @param args the command line arguments
@@ -470,16 +586,17 @@ public class FormaGlavna extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDodajIgracaZaTurnir;
+    private javax.swing.JButton btnKreirajTurnir;
+    private javax.swing.JButton btnNapraviIgraca;
+    private javax.swing.JButton btnNapraviKlub;
+    private javax.swing.JButton btnObrisiIgracaIzListeZaTurnir;
     private javax.swing.JComboBox cmbIgrac;
     private javax.swing.JComboBox cmbKlub;
     private javax.swing.JComboBox cmbLiga;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -496,19 +613,20 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel panelNapraviTurnir;
     private javax.swing.JPanel panelStatistikaIgraca;
     private javax.swing.JPanel panelTabelaTurniri;
+    private javax.swing.JSpinner spinerBrojZvezdica;
+    private javax.swing.JTable tabelaIgracaNaTurniru;
+    private javax.swing.JTextField txtIme;
+    private javax.swing.JTextField txtImeKluba;
+    private javax.swing.JTextField txtNadimak;
+    private javax.swing.JTextField txtNazivTurnira;
+    private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
 
     private void ucitajPanel() {
@@ -516,7 +634,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }
-
+    
     private void ucitajMiSveKlubove() {
         cmbKlub.removeAllItems();
         ArrayList<Klub> klubovi = Kontroler.getInstance().vratiMiSveKlubove();
@@ -524,7 +642,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbKlub.addItem(klub);
         }
     }
-
+    
     private void ucitajMiSveIgrace() {
         cmbIgrac.removeAllItems();
         ArrayList<Igrac> igraci = Kontroler.getInstance().vratiMiSveIgrace();
@@ -532,7 +650,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbIgrac.addItem(igrac);
         }
     }
-
+    
     private void ucitajMiSveLige() {
         cmbLiga.removeAllItems();
         ArrayList<Liga> lige = Kontroler.getInstance().vratiMiSveLige();
@@ -540,5 +658,9 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbLiga.addItem(liga);
         }
     }
-
+    
+    private void ucitajModelTabele() {
+        tabelaIgracaNaTurniru.setModel(mtizt);
+    }
+    
 }
