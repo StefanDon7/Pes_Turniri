@@ -108,11 +108,12 @@ public class DBBroker {
     }
 
     public void napraviTurnir(Turnir t) throws SQLException {
-        String upit = "INSERT INTO TURNIR(id,naziv,datum) values(?,?,?)";
+        String upit = "INSERT INTO TURNIR(id,naziv,datum,pobednik) values(?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
         ps.setInt(1, t.getId());
         ps.setString(2, t.getNaziv());
         ps.setDate(3, new java.sql.Date(t.getDatum().getTime()));
+        ps.setInt(4, -1);
         ps.execute();
     }
 
@@ -153,6 +154,106 @@ public class DBBroker {
         ps.setInt(2, k.getLiga().getId());
         ps.setDouble(3, k.getBrojZvezdica());
         ps.execute();
+    }
+
+    public ArrayList<Turnir> vratiMiSveTurnire() throws SQLException {
+        ArrayList<Turnir> lista = new ArrayList<>();
+        String upit = "Select * from Turnir order by id desc";
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String naziv = rs.getString("naziv");
+            java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
+            Ucesnik u;
+            Turnir t = new Turnir();
+            t.setId(id);
+            t.setDatum(datum);
+            t.setNaziv(naziv);
+            t.setPobednik(null);
+            int pobednikid = rs.getInt("pobednik");
+            if (pobednikid == -1) {
+                u = null;
+            } else {
+                u = vratiMiPobednika(t);
+            }
+            t.setPobednik(u);
+            lista.add(t);
+        }
+        return lista;
+    }
+
+    private Ucesnik vratiMiPobednika(Turnir t) throws SQLException {
+        String upit = "Select * from Ucesnik where turnir=" + t.getId() + " and mesto=" + 1;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Ucesnik u = new Ucesnik();
+        while (rs.next()) {
+            int igracid = rs.getInt("igrac");
+            int klubid = rs.getInt("klub");
+            int mesto = rs.getInt("mesto");
+            Igrac i = vratiMiIgraca(igracid);
+            Klub k = vratiMiKlub(klubid);
+            u = new Ucesnik(i, k, t, mesto);
+        }
+        return u;
+    }
+
+    private Igrac vratiMiIgraca(int igracid) throws SQLException {
+        String upit = "Select * from Igrac where id=" + igracid;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Igrac i = new Igrac();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String ime = rs.getString("ime");
+            String prezime = rs.getString("prezime");
+            String korisnickoIme = rs.getString("korisnickoIme");
+            i = new Igrac(id, ime, prezime, korisnickoIme);
+        }
+        return i;
+    }
+
+    private Klub vratiMiKlub(int klubid) throws SQLException {
+        String upit = "Select * from Klub where id=" + klubid;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Klub k = new Klub();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String naziv = rs.getString("naziv");
+            int ligaid = rs.getInt("ligaID");
+            double brojZvezdica = rs.getDouble("brojZvezdica");
+            Liga liga = vratiMiLigu(ligaid);
+            k = new Klub(id, naziv, liga, brojZvezdica);
+        }
+        return k;
+    }
+
+    private Turnir vratiMiTurnir(int turnirid) throws SQLException {
+        String upit = "Select * from Turnir where id=" + turnirid;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Turnir t = new Turnir();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String naziv = rs.getString("naziv");
+            java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
+            Ucesnik u;
+            t = new Turnir();
+            t.setId(id);
+            t.setDatum(datum);
+            t.setNaziv(naziv);
+            t.setPobednik(null);
+            int pobednikid = rs.getInt("pobednik");
+            if (pobednikid == -1) {
+                u = null;
+            } else {
+                u = vratiMiPobednika(t);
+            }
+            t.setPobednik(u);
+        }
+        return t;
     }
 
 }

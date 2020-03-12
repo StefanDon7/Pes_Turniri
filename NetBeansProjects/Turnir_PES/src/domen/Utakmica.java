@@ -12,29 +12,24 @@ import java.util.Date;
  * @author Dule
  */
 public class Utakmica {
+
     private int id;
     private Date datum;
-    private Igrac domacin;
-    private Igrac gost;
-    private Klub klubDomacin;
-    private Klub klubGost;
+    private Ucesnik domacin;
+    private Ucesnik gost;
     private int golDomacin;
     private int golGost;
-    private Turnir turnir;
 
     public Utakmica() {
     }
 
-    public Utakmica(int id, Date datum, Igrac domacin, Igrac gost, Klub klubDomacin, Klub klubGost, int golDomacin, int golGost, Turnir turnir) {
+    public Utakmica(int id, Date datum, Ucesnik domacin, Ucesnik gost, int golDomacin, int golGost) {
         this.id = id;
         this.datum = datum;
         this.domacin = domacin;
         this.gost = gost;
-        this.klubDomacin = klubDomacin;
-        this.klubGost = klubGost;
         this.golDomacin = golDomacin;
         this.golGost = golGost;
-        this.turnir = turnir;
     }
 
     public int getId() {
@@ -53,38 +48,6 @@ public class Utakmica {
         this.datum = datum;
     }
 
-    public Igrac getDomacin() {
-        return domacin;
-    }
-
-    public void setDomacin(Igrac domacin) {
-        this.domacin = domacin;
-    }
-
-    public Igrac getGost() {
-        return gost;
-    }
-
-    public void setGost(Igrac gost) {
-        this.gost = gost;
-    }
-
-    public Klub getKlubDomacin() {
-        return klubDomacin;
-    }
-
-    public void setKlubDomacin(Klub klubDomacin) {
-        this.klubDomacin = klubDomacin;
-    }
-
-    public Klub getKlubGost() {
-        return klubGost;
-    }
-
-    public void setKlubGost(Klub klubGost) {
-        this.klubGost = klubGost;
-    }
-
     public int getGolDomacin() {
         return golDomacin;
     }
@@ -101,15 +64,20 @@ public class Utakmica {
         this.golGost = golGost;
     }
 
-    public Turnir getTurnir() {
-        return turnir;
+    public Ucesnik getDomacin() {
+        return domacin;
     }
 
-    public void setTurnir(Turnir turnir) {
-        this.turnir = turnir;
+    public void setDomacin(Ucesnik domacin) {
+        this.domacin = domacin;
     }
-    
-    
-    
-    
+
+    public Ucesnik getGost() {
+        return gost;
+    }
+
+    public void setGost(Ucesnik gost) {
+        this.gost = gost;
+    }
+
 }

@@ -5,7 +5,8 @@
  */
 package modeliTabela;
 
-import domen.Ucesnik;
+import domen.Turnir;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -14,18 +15,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author sleza
  */
-public class ModelTabeleIgracaZaTurnir extends AbstractTableModel {
+public class ModelTabeleListaTurnira extends AbstractTableModel {
 
-    List<Ucesnik> lista = new ArrayList<Ucesnik>();
-    String[] kolone = {"Redni broj", "Ime i prezime", "Klub"};
+    List<Turnir> lista = new ArrayList<Turnir>();
+    SimpleDateFormat smf = new SimpleDateFormat("dd/MM/yyyy");
+    String[] kolone = {"Datum", "Naziv", "Pobednik"};
 
-    public ModelTabeleIgracaZaTurnir() {
+    public ModelTabeleListaTurnira() {
         lista = new ArrayList<>();
     }
 
     @Override
     public int getRowCount() {
         return lista.size();
+
     }
 
     @Override
@@ -35,16 +38,20 @@ public class ModelTabeleIgracaZaTurnir extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Ucesnik u = lista.get(rowIndex);
+        Turnir t = lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return rowIndex + 1;
+                return smf.format(t.getDatum());
             case 1:
-                return u.getIgrac();
+                return t.getNaziv();
             case 2:
-                return u.getKlub();
+                if (t.getPobednik() == null) {
+                    return "U toku...";
+                }
+                return t.getPobednik().getIgrac().toString() + " - " + t.getPobednik().getKlub().toString();
+            default:
+                return "";
         }
-        return null;
     }
 
     @Override
@@ -59,18 +66,22 @@ public class ModelTabeleIgracaZaTurnir extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    public void dodajUcesnika(Ucesnik u) {
-        lista.add(u);
+    public void dodajUcesnika(Turnir t) {
+        lista.add(t);
         osveziTabelu();
     }
 
-    public List<Ucesnik> getLista() {
+    public List<Turnir> getLista() {
         return lista;
     }
 
-    public void obirisIzTabele(Ucesnik u) {
-        lista.remove(u);
+    public void obirisIzTabele(Turnir t) {
+        lista.remove(t);
         osveziTabelu();
+    }
+
+    public void setLista(List<Turnir> lista) {
+        this.lista = lista;
     }
 
 }

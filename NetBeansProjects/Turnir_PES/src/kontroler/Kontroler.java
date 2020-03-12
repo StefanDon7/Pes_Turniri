@@ -246,4 +246,24 @@ public class Kontroler {
         return uspesno;
     }
 
+    public ArrayList<Turnir> vratiMiSveTurnire() {
+        ArrayList<Turnir> lista = new ArrayList<>();
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            lista = db.vratiMiSveTurnire();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lista;
+    }
+
 }

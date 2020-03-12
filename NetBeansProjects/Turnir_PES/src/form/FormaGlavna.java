@@ -12,29 +12,33 @@ import domen.Turnir;
 import domen.Ucesnik;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import kontroler.Kontroler;
 import modeliTabela.ModelTabeleIgracaZaTurnir;
+import modeliTabela.ModelTabeleListaTurnira;
 
 /**
  *
  * @author Dule
  */
 public class FormaGlavna extends javax.swing.JFrame {
-    
+
     modeliTabela.ModelTabeleIgracaZaTurnir mtizt = new ModelTabeleIgracaZaTurnir();
+    modeliTabela.ModelTabeleListaTurnira mtt = new ModelTabeleListaTurnira();
 
     /**
      * Creates new form FormaGlavna
      */
     public FormaGlavna() {
         initComponents();
+        this.setSize(1550, 1000);
+
         ucitajPanel();
         ucitajMiSveKlubove();
         ucitajMiSveIgrace();
         ucitajMiSveLige();
         ucitajModelTabele();
+
     }
 
     /**
@@ -46,6 +50,20 @@ public class FormaGlavna extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelTabelaTurniri = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaUtakmica = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaTabela = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaTurnira = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
         panelNapraviTurnir = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,15 +98,104 @@ public class FormaGlavna extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        panelTabelaTurniri = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        btnNapraviTabeluMeni = new javax.swing.JButton();
+        cmbTabeleMeni = new javax.swing.JButton();
+        btnStatistikaMeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        panelTabelaTurniri.setLayout(null);
+
+        tabelaUtakmica.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaUtakmica);
+
+        panelTabelaTurniri.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 70, 380, 129);
+
+        tabelaTabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaTabela);
+
+        panelTabelaTurniri.add(jScrollPane3);
+        jScrollPane3.setBounds(10, 230, 380, 155);
+
+        tabelaTurnira.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tabelaTurnira);
+
+        panelTabelaTurniri.add(jScrollPane4);
+        jScrollPane4.setBounds(680, 50, 400, 380);
+
+        jLabel11.setText("Tabela:");
+        panelTabelaTurniri.add(jLabel11);
+        jLabel11.setBounds(10, 210, 140, 16);
+
+        jLabel12.setText("Lista utakmica:");
+        panelTabelaTurniri.add(jLabel12);
+        jLabel12.setBounds(10, 46, 87, 20);
+
+        jLabel13.setText("Lista turnira");
+        panelTabelaTurniri.add(jLabel13);
+        jLabel13.setBounds(680, 20, 180, 16);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable1);
+
+        panelTabelaTurniri.add(jScrollPane6);
+        jScrollPane6.setBounds(410, 70, 230, 310);
+
+        jLabel14.setText("Igraci:");
+        panelTabelaTurniri.add(jLabel14);
+        jLabel14.setBounds(420, 50, 70, 20);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        panelTabelaTurniri.add(jSeparator1);
+        jSeparator1.setBounds(650, 0, 20, 430);
+
+        getContentPane().add(panelTabelaTurniri);
+        panelTabelaTurniri.setBounds(10, 33, 1480, 950);
+
+        panelNapraviTurnir.setLayout(null);
 
         tabelaIgracaNaTurniru.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,6 +296,9 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelNapraviTurnir.add(jPanel1);
+        jPanel1.setBounds(6, 6, 500, 348);
+
         jLabel3.setText("Ime:");
 
         jLabel4.setText("Prezime:");
@@ -225,7 +335,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                                 .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(btnNapraviIgraca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnNapraviIgraca, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -247,6 +357,9 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addComponent(btnNapraviIgraca)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        panelNapraviTurnir.add(jPanel2);
+        jPanel2.setBounds(532, 6, 344, 152);
 
         jLabel7.setText("Ime kluba:");
 
@@ -307,34 +420,13 @@ public class FormaGlavna extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelNapraviTurnirLayout = new javax.swing.GroupLayout(panelNapraviTurnir);
-        panelNapraviTurnir.setLayout(panelNapraviTurnirLayout);
-        panelNapraviTurnirLayout.setHorizontalGroup(
-            panelNapraviTurnirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNapraviTurnirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelNapraviTurnirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelNapraviTurnirLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelNapraviTurnirLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panelNapraviTurnirLayout.setVerticalGroup(
-            panelNapraviTurnirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelNapraviTurnirLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelNapraviTurnirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelNapraviTurnirLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
-        );
+        panelNapraviTurnir.add(jPanel3);
+        jPanel3.setBounds(512, 170, 364, 138);
+
+        getContentPane().add(panelNapraviTurnir);
+        panelNapraviTurnir.setBounds(12, 37, 1480, 950);
+
+        panelStatistikaIgraca.setLayout(null);
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,127 +441,46 @@ public class FormaGlavna extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(jTable5);
 
+        panelStatistikaIgraca.add(jScrollPane5);
+        jScrollPane5.setBounds(6, 74, 858, 217);
+
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelStatistikaIgraca.add(jComboBox3);
+        jComboBox3.setBounds(197, 36, 273, 26);
 
         jLabel8.setText("jLabel8");
+        panelStatistikaIgraca.add(jLabel8);
+        jLabel8.setBounds(6, 39, 173, 20);
 
-        javax.swing.GroupLayout panelStatistikaIgracaLayout = new javax.swing.GroupLayout(panelStatistikaIgraca);
-        panelStatistikaIgraca.setLayout(panelStatistikaIgracaLayout);
-        panelStatistikaIgracaLayout.setHorizontalGroup(
-            panelStatistikaIgracaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStatistikaIgracaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelStatistikaIgracaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelStatistikaIgracaLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        panelStatistikaIgracaLayout.setVerticalGroup(
-            panelStatistikaIgracaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelStatistikaIgracaLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(panelStatistikaIgracaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
-        );
+        getContentPane().add(panelStatistikaIgraca);
+        panelStatistikaIgraca.setBounds(6, 35, 1480, 950);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        btnNapraviTabeluMeni.setText("Kreiraj Turnir");
+        btnNapraviTabeluMeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNapraviTabeluMeniActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        });
+        getContentPane().add(btnNapraviTabeluMeni);
+        btnNapraviTabeluMeni.setBounds(0, 0, 120, 32);
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        cmbTabeleMeni.setText("Tabela");
+        cmbTabeleMeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTabeleMeniActionPerformed(evt);
             }
-        ));
-        jScrollPane3.setViewportView(jTable3);
+        });
+        getContentPane().add(cmbTabeleMeni);
+        cmbTabeleMeni.setBounds(111, 0, 110, 32);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        btnStatistikaMeni.setText("Statistika");
+        btnStatistikaMeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatistikaMeniActionPerformed(evt);
             }
-        ));
-        jScrollPane4.setViewportView(jTable4);
-
-        javax.swing.GroupLayout panelTabelaTurniriLayout = new javax.swing.GroupLayout(panelTabelaTurniri);
-        panelTabelaTurniri.setLayout(panelTabelaTurniriLayout);
-        panelTabelaTurniriLayout.setHorizontalGroup(
-            panelTabelaTurniriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTabelaTurniriLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTabelaTurniriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addGap(147, 147, 147)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
-        panelTabelaTurniriLayout.setVerticalGroup(
-            panelTabelaTurniriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTabelaTurniriLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTabelaTurniriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelTabelaTurniriLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(360, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelNapraviTurnir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelTabelaTurniri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelStatistikaIgraca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelNapraviTurnir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 303, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelTabelaTurniri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelStatistikaIgraca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        });
+        getContentPane().add(btnStatistikaMeni);
+        btnStatistikaMeni.setBounds(205, 1, 120, 31);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -480,7 +491,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = new Ucesnik(i, k, null, mtizt.getRowCount() + 1);
         mtizt.dodajUcesnika(u);
     }//GEN-LAST:event_btnDodajIgracaZaTurnirActionPerformed
-    
+
     private void btnObrisiIgracaIzListeZaTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
         int broj = tabelaIgracaNaTurniru.getSelectedRow();
         if (broj == -1) {
@@ -490,7 +501,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = mtizt.getLista().get(broj);
         mtizt.obirisIzTabele(u);
     }//GEN-LAST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
-    
+
     private void btnKreirajTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajTurnirActionPerformed
         ArrayList<Ucesnik> lista = (ArrayList<Ucesnik>) mtizt.getLista();
         String naziv = txtNazivTurnira.getText();
@@ -500,7 +511,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         int maxID = Kontroler.getInstance().vratiMiZaTurnirID();
         Date d = new Date();
-        Turnir t = new Turnir(maxID, naziv, d);
+        Turnir t = new Turnir(maxID, naziv, d, null);
         txtNazivTurnira.setText("");
         boolean uspesnoTurnir = Kontroler.getInstance().napraviTurnir(t);
         for (Ucesnik ucesnik : lista) {
@@ -512,9 +523,9 @@ public class FormaGlavna extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "GRESKA!");
         }
-        
+
     }//GEN-LAST:event_btnKreirajTurnirActionPerformed
-    
+
     private void btnNapraviIgracaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviIgracaActionPerformed
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
@@ -527,13 +538,13 @@ public class FormaGlavna extends javax.swing.JFrame {
         if (uspesno) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen igrac!");
             cmbIgrac.addItem(i);
-            
+
             return;
         }
         JOptionPane.showMessageDialog(this, "GRESKA!");
-        
+
     }//GEN-LAST:event_btnNapraviIgracaActionPerformed
-    
+
     private void btnNapraviKlubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviKlubActionPerformed
         String naziv = txtImeKluba.getText();
         Liga l = (Liga) cmbLiga.getSelectedItem();
@@ -547,8 +558,27 @@ public class FormaGlavna extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(this, "GRESKA!");
-        
+
     }//GEN-LAST:event_btnNapraviKlubActionPerformed
+
+    private void btnNapraviTabeluMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviTabeluMeniActionPerformed
+        panelNapraviTurnir.setVisible(true);
+        panelStatistikaIgraca.setVisible(false);
+        panelTabelaTurniri.setVisible(false);
+    }//GEN-LAST:event_btnNapraviTabeluMeniActionPerformed
+
+    private void cmbTabeleMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTabeleMeniActionPerformed
+        panelNapraviTurnir.setVisible(false);
+        panelStatistikaIgraca.setVisible(false);
+        panelTabelaTurniri.setVisible(true);
+        ucitajTurnire();
+    }//GEN-LAST:event_cmbTabeleMeniActionPerformed
+
+    private void btnStatistikaMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistikaMeniActionPerformed
+        panelNapraviTurnir.setVisible(false);
+        panelStatistikaIgraca.setVisible(true);
+        panelTabelaTurniri.setVisible(false);
+    }//GEN-LAST:event_btnStatistikaMeniActionPerformed
 
     /**
      * @param args the command line arguments
@@ -590,13 +620,20 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JButton btnKreirajTurnir;
     private javax.swing.JButton btnNapraviIgraca;
     private javax.swing.JButton btnNapraviKlub;
+    private javax.swing.JButton btnNapraviTabeluMeni;
     private javax.swing.JButton btnObrisiIgracaIzListeZaTurnir;
+    private javax.swing.JButton btnStatistikaMeni;
     private javax.swing.JComboBox cmbIgrac;
     private javax.swing.JComboBox cmbKlub;
     private javax.swing.JComboBox cmbLiga;
+    private javax.swing.JButton cmbTabeleMeni;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -613,15 +650,18 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable5;
     private javax.swing.JPanel panelNapraviTurnir;
     private javax.swing.JPanel panelStatistikaIgraca;
     private javax.swing.JPanel panelTabelaTurniri;
     private javax.swing.JSpinner spinerBrojZvezdica;
     private javax.swing.JTable tabelaIgracaNaTurniru;
+    private javax.swing.JTable tabelaTabela;
+    private javax.swing.JTable tabelaTurnira;
+    private javax.swing.JTable tabelaUtakmica;
     private javax.swing.JTextField txtIme;
     private javax.swing.JTextField txtImeKluba;
     private javax.swing.JTextField txtNadimak;
@@ -634,7 +674,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }
-    
+
     private void ucitajMiSveKlubove() {
         cmbKlub.removeAllItems();
         ArrayList<Klub> klubovi = Kontroler.getInstance().vratiMiSveKlubove();
@@ -642,7 +682,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbKlub.addItem(klub);
         }
     }
-    
+
     private void ucitajMiSveIgrace() {
         cmbIgrac.removeAllItems();
         ArrayList<Igrac> igraci = Kontroler.getInstance().vratiMiSveIgrace();
@@ -650,7 +690,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbIgrac.addItem(igrac);
         }
     }
-    
+
     private void ucitajMiSveLige() {
         cmbLiga.removeAllItems();
         ArrayList<Liga> lige = Kontroler.getInstance().vratiMiSveLige();
@@ -658,9 +698,16 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbLiga.addItem(liga);
         }
     }
-    
+
     private void ucitajModelTabele() {
         tabelaIgracaNaTurniru.setModel(mtizt);
     }
-    
+
+    private void ucitajTurnire() {
+        ArrayList<Turnir> lista = kontroler.Kontroler.getInstance().vratiMiSveTurnire();
+        tabelaTurnira.setModel(mtt);
+        mtt.setLista(lista);
+        mtt.fireTableDataChanged();
+    }
+
 }
