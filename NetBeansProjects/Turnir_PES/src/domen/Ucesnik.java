@@ -5,25 +5,35 @@
  */
 package domen;
 
+import java.util.Objects;
+
 /**
  *
  * @author sleza
  */
 public class Ucesnik {
 
-    private Igrac igrac;
+    private int ucesnikid;
     private Klub klub;
-    private Turnir turnir;
-    private int pozicija;
+    private Igrac igrac;
+    private Mesto mesto;
 
     public Ucesnik() {
     }
 
-    public Ucesnik(Igrac igrac, Klub klub, Turnir turnir, int pozicija) {
-        this.igrac = igrac;
+    public Ucesnik(int ucesnikid, Klub klub, Igrac igrac, Mesto mesto) {
+        this.ucesnikid = ucesnikid;
         this.klub = klub;
-        this.turnir = turnir;
-        this.pozicija = pozicija;
+        this.igrac = igrac;
+        this.mesto = mesto;
+    }
+
+    public int getUcesnikid() {
+        return ucesnikid;
+    }
+
+    public void setUcesnikid(int ucesnikid) {
+        this.ucesnikid = ucesnikid;
     }
 
     public Klub getKlub() {
@@ -42,25 +52,38 @@ public class Ucesnik {
         this.igrac = igrac;
     }
 
-    public Turnir getTurnir() {
-        return turnir;
+    public Mesto getMesto() {
+        return mesto;
     }
 
-    public void setTurnir(Turnir turnir) {
-        this.turnir = turnir;
-    }
-
-    public int getPozicija() {
-        return pozicija;
-    }
-
-    public void setPozicija(int pozicija) {
-        this.pozicija = pozicija;
+    public void setMesto(Mesto mesto) {
+        this.mesto = mesto;
     }
 
     @Override
     public String toString() {
         return igrac.toString() + " - " + klub.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ucesnik other = (Ucesnik) obj;
+        if (!Objects.equals(this.igrac, other.igrac)) {
+            return false;
+        }
+        if (!Objects.equals(this.klub, other.klub)) {
+            return false;
+        }
+        return true;
     }
 
 }

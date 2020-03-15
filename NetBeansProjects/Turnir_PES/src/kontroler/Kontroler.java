@@ -11,6 +11,7 @@ import domen.Klub;
 import domen.Liga;
 import domen.Turnir;
 import domen.Ucesnik;
+import domen.Utakmica;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -264,6 +265,40 @@ public class Kontroler {
             }
         }
         return lista;
+    }
+
+    public boolean unesiUtakmice(ArrayList<Utakmica> listaUtakmica) {
+        boolean uspesno = false;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            for (Utakmica utakmica : listaUtakmica) {
+                db.napraviUtakmicu(utakmica);
+            }
+            uspesno = true;
+            db.commitTransaction();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return uspesno;
     }
 
 }

@@ -80,4 +80,9 @@ public class Utakmica {
         this.gost = gost;
     }
 
+    @Override
+    public String toString() {
+        return domacin.getKlub() + " " + getGolDomacin() + ":" + getGolGost() + " " + gost.getKlub();
+    }
+
 }

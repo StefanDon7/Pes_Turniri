@@ -10,6 +10,7 @@ package domen;
  * @author Dule
  */
 public class Igrac {
+
     private int id;
     private String ime;
     private String prezime;
@@ -24,7 +25,7 @@ public class Igrac {
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
     }
-    
+
     public String getIme() {
         return ime;
     }
@@ -59,9 +60,31 @@ public class Igrac {
 
     @Override
     public String toString() {
-        return ime+" "+prezime;
+        return ime + " " + prezime;
     }
-    
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Igrac other = (Igrac) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -10,6 +10,7 @@ import domen.Klub;
 import domen.Liga;
 import domen.Turnir;
 import domen.Ucesnik;
+import domen.Utakmica;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -503,7 +504,7 @@ public class FormaGlavna extends javax.swing.JFrame {
     }//GEN-LAST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
 
     private void btnKreirajTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajTurnirActionPerformed
-        ArrayList<Ucesnik> lista = (ArrayList<Ucesnik>) mtizt.getLista();
+        ArrayList<Ucesnik> listaUcesnika = (ArrayList<Ucesnik>) mtizt.getLista();
         String naziv = txtNazivTurnira.getText();
         if (naziv.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Popunite polje naziv turnira!");
@@ -514,11 +515,17 @@ public class FormaGlavna extends javax.swing.JFrame {
         Turnir t = new Turnir(maxID, naziv, d, null);
         txtNazivTurnira.setText("");
         boolean uspesnoTurnir = Kontroler.getInstance().napraviTurnir(t);
-        for (Ucesnik ucesnik : lista) {
+        for (Ucesnik ucesnik : listaUcesnika) {
             ucesnik.setTurnir(t);
         }
-        boolean uspesnoUcesnici = Kontroler.getInstance().unesiUcesnike(lista);
-        if (uspesnoTurnir && uspesnoUcesnici) {
+        boolean uspesnoUcesnici = Kontroler.getInstance().unesiUcesnike(listaUcesnika);
+        ArrayList<Utakmica> listaUtakmica = napraviUtakmice(listaUcesnika);
+        //izbrisi posle
+        for (Utakmica utakmica : listaUtakmica) {
+            System.out.println(utakmica.toString());
+        }
+        boolean uspesnoUtakmice = Kontroler.getInstance().unesiUtakmice(listaUtakmica);
+        if (uspesnoTurnir && uspesnoUcesnici && uspesnoUtakmice) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen turnir!");
         } else {
             JOptionPane.showMessageDialog(this, "GRESKA!");
@@ -708,6 +715,34 @@ public class FormaGlavna extends javax.swing.JFrame {
         tabelaTurnira.setModel(mtt);
         mtt.setLista(lista);
         mtt.fireTableDataChanged();
+    }
+
+    private ArrayList<Utakmica> napraviUtakmice(ArrayList<Ucesnik> listaUcesnika) {
+        ArrayList<Utakmica> trazenaLista = new ArrayList<>();
+        for (Ucesnik ucesnik : listaUcesnika) {
+            for (Ucesnik ucesnik2 : listaUcesnika) {
+                if (!ucesnik.equals(ucesnik2)) {
+                    Utakmica u = new Utakmica(-1, new Date(), ucesnik, ucesnik2, 0, 0);
+                    Utakmica u2 = new Utakmica(-1, new Date(), ucesnik2, ucesnik, 0, 0);
+                    if (!daLiPostojiUListiUtakmice(u, trazenaLista)) {
+                        trazenaLista.add(u);
+                    }
+                    if (!daLiPostojiUListiUtakmice(u2, trazenaLista)) {
+                        trazenaLista.add(u2);
+                    }
+                }
+            }
+        }
+        return trazenaLista;
+    }
+
+    private boolean daLiPostojiUListiUtakmice(Utakmica u, ArrayList<Utakmica> trazenaLista) {
+        for (Utakmica utakmica : trazenaLista) {
+            if (u.getDomacin().equals(utakmica.getDomacin()) && u.getGost().equals(utakmica.getGost())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

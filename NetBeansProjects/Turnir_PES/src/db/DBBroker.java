@@ -10,6 +10,7 @@ import domen.Klub;
 import domen.Liga;
 import domen.Turnir;
 import domen.Ucesnik;
+import domen.Utakmica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -118,14 +119,23 @@ public class DBBroker {
     }
 
     public void unesiUcesnike(Ucesnik ucesnik) throws SQLException {
-        String upit = "INSERT INTO UCESNIK(igrac,klub,turnir,mesto) values(?,?,?,?)";
+        String upit = "INSERT INTO UCESNIK(ucesnikid,klub,igrac,mesto) values(?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
         ps.setInt(1, ucesnik.getIgrac().getId());
         ps.setInt(2, ucesnik.getKlub().getId());
-        ps.setInt(3, ucesnik.getTurnir().getId());
+        ps.setInt(3, ucesnik.getIgrac().getId());
         ps.setInt(4, ucesnik.getPozicija());
         ps.execute();
     }
+      public void napraviUtakmicu(Utakmica utakmica) throws SQLException {
+        String upit = "INSERT INTO Utakmica(datum,domacin,gost,turnir) values(?,?,?)";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setDate(1, new java.sql.Date(utakmica.getDatum().getTime()));
+        ps.setInt(2, utakmica.getDomacin().getIgrac().getId());
+        ps.setDouble(3, utakmica.getDomacin().get);
+        ps.execute();
+    }
+
 
     public int vratiMiZaTurnirID() throws SQLException {
         int broj = 0;
@@ -256,4 +266,5 @@ public class DBBroker {
         return t;
     }
 
+  
 }
