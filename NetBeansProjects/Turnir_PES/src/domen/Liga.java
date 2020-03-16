@@ -43,4 +43,22 @@ public class Liga {
         return naziv;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Liga other = (Liga) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
 }

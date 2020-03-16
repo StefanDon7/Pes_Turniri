@@ -5,6 +5,8 @@
  */
 package domen;
 
+import java.util.Objects;
+
 /**
  *
  * @author Dule
@@ -75,7 +77,10 @@ public class Klub {
             return false;
         }
         final Klub other = (Klub) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.naziv, other.naziv)) {
+            return false;
+        }
+        if (!Objects.equals(this.liga, other.liga)) {
             return false;
         }
         return true;

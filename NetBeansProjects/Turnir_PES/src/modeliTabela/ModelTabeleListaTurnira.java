@@ -19,7 +19,7 @@ public class ModelTabeleListaTurnira extends AbstractTableModel {
 
     List<Turnir> lista = new ArrayList<Turnir>();
     SimpleDateFormat smf = new SimpleDateFormat("dd/MM/yyyy");
-    String[] kolone = {"Datum", "Naziv", "Pobednik"};
+    String[] kolone = {"Datum", "Naziv"};
 
     public ModelTabeleListaTurnira() {
         lista = new ArrayList<>();
@@ -44,11 +44,6 @@ public class ModelTabeleListaTurnira extends AbstractTableModel {
                 return smf.format(t.getDatum());
             case 1:
                 return t.getNaziv();
-            case 2:
-                if (t.getPobednik() == null) {
-                    return "U toku...";
-                }
-                return t.getPobednik().getIgrac().toString() + " - " + t.getPobednik().getKlub().toString();
             default:
                 return "";
         }

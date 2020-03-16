@@ -13,35 +13,29 @@ import java.util.Objects;
  */
 public class Ucesnik {
 
-    private int ucesnikid;
-    private Klub klub;
+    private int id;
     private Igrac igrac;
-    private Mesto mesto;
+    private Turnir turnir;
+    private Klub klub;
+    private int mesto;
 
     public Ucesnik() {
     }
 
-    public Ucesnik(int ucesnikid, Klub klub, Igrac igrac, Mesto mesto) {
-        this.ucesnikid = ucesnikid;
-        this.klub = klub;
+    public Ucesnik(int id, Igrac igrac, Turnir turnir, Klub klub, int mesto) {
+        this.id = id;
         this.igrac = igrac;
+        this.turnir = turnir;
+        this.klub = klub;
         this.mesto = mesto;
     }
 
-    public int getUcesnikid() {
-        return ucesnikid;
+    public int getId() {
+        return id;
     }
 
-    public void setUcesnikid(int ucesnikid) {
-        this.ucesnikid = ucesnikid;
-    }
-
-    public Klub getKlub() {
-        return klub;
-    }
-
-    public void setKlub(Klub klub) {
-        this.klub = klub;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Igrac getIgrac() {
@@ -52,11 +46,27 @@ public class Ucesnik {
         this.igrac = igrac;
     }
 
-    public Mesto getMesto() {
+    public Turnir getTurnir() {
+        return turnir;
+    }
+
+    public void setTurnir(Turnir turnir) {
+        this.turnir = turnir;
+    }
+
+    public Klub getKlub() {
+        return klub;
+    }
+
+    public void setKlub(Klub klub) {
+        this.klub = klub;
+    }
+
+    public int getMesto() {
         return mesto;
     }
 
-    public void setMesto(Mesto mesto) {
+    public void setMesto(int mesto) {
         this.mesto = mesto;
     }
 
@@ -77,10 +87,13 @@ public class Ucesnik {
             return false;
         }
         final Ucesnik other = (Ucesnik) obj;
+        if (!Objects.equals(this.klub, other.klub)) {
+            return false;
+        }
         if (!Objects.equals(this.igrac, other.igrac)) {
             return false;
         }
-        if (!Objects.equals(this.klub, other.klub)) {
+        if (!Objects.equals(this.turnir, other.turnir)) {
             return false;
         }
         return true;

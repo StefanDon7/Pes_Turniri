@@ -16,16 +16,14 @@ public class Turnir {
     private int id;
     private String naziv;
     private Date datum;
-    private Ucesnik pobednik = null;
 
     public Turnir() {
     }
 
-    public Turnir(int id, String naziv, Date datum, Ucesnik pobednik) {
+    public Turnir(int id, String naziv, Date datum) {
         this.id = id;
         this.naziv = naziv;
         this.datum = datum;
-        this.pobednik = pobednik;
     }
 
     public int getId() {
@@ -50,14 +48,6 @@ public class Turnir {
 
     public void setDatum(Date datum) {
         this.datum = datum;
-    }
-
-    public Ucesnik getPobednik() {
-        return pobednik;
-    }
-
-    public void setPobednik(Ucesnik pobednik) {
-        this.pobednik = pobednik;
     }
 
     @Override

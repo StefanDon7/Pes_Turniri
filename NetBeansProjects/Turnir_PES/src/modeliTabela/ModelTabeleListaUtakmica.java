@@ -21,7 +21,7 @@ public class ModelTabeleListaUtakmica extends AbstractTableModel {
 
     List<Utakmica> lista = new ArrayList<Utakmica>();
     String[] kolone = {"R.B.", "Domacin", "Golovi domacin", "Golovi Gost", "Gost"};
-    private final Class[] columnsType = new Class[]{Integer.class, Klub.class, Integer.class, Klub.class, Integer.class};
+    private final Class[] columnsType = new Class[]{Integer.class, Klub.class, Integer.class, Integer.class, Klub.class};
     //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
@@ -39,17 +39,42 @@ public class ModelTabeleListaUtakmica extends AbstractTableModel {
         Utakmica u = lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return rowIndex;
+                return rowIndex + 1;
             case 1:
                 return u.getDomacin().getKlub();
             case 2:
-                return u.getGolDomacin();
+                if (u.getGolDomacin() != -1) {
+                    return u.getGolDomacin();
+                } else {
+                    return "";
+                }
             case 3:
-                return u.getGolGost();
+                if (u.getGolGost() != -1) {
+                    return u.getGolGost();
+                } else {
+                    return "";
+                }
             case 4:
                 return u.getGost().getKlub();
             default:
                 return "";
+        }
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        Utakmica u = lista.get(rowIndex);
+        switch (columnIndex) {
+            case 2:
+                int gol1 = (int) aValue;
+                u.setGolDomacin(gol1);
+                return;
+            case 3:
+                int gol2 = (int) aValue;
+                u.setGolGost(gol2);
+                break;
+            default:
+                return;
         }
     }
 
@@ -67,6 +92,25 @@ public class ModelTabeleListaUtakmica extends AbstractTableModel {
             return true;
         }
         return false;
+    }
+
+    public List<Utakmica> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<Utakmica> lista) {
+        this.lista = lista;
+        osveziTabelu();
+    }
+
+    private void osveziTabelu() {
+        fireTableDataChanged();
+    }
+
+    @Override
+    public Class<?> getColumnClass(int column
+    ) {
+        return columnsType[column];
     }
 
 }

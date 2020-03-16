@@ -109,33 +109,33 @@ public class DBBroker {
     }
 
     public void napraviTurnir(Turnir t) throws SQLException {
-        String upit = "INSERT INTO TURNIR(id,naziv,datum,pobednik) values(?,?,?,?)";
+        String upit = "INSERT INTO TURNIR(id,naziv,datum) values(?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
         ps.setInt(1, t.getId());
         ps.setString(2, t.getNaziv());
         ps.setDate(3, new java.sql.Date(t.getDatum().getTime()));
-        ps.setInt(4, -1);
         ps.execute();
     }
 
     public void unesiUcesnike(Ucesnik ucesnik) throws SQLException {
-        String upit = "INSERT INTO UCESNIK(ucesnikid,klub,igrac,mesto) values(?,?,?,?)";
+        String upit = "INSERT INTO UCESNIK(igrac,turnir,klub,mesto) values(?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
         ps.setInt(1, ucesnik.getIgrac().getId());
-        ps.setInt(2, ucesnik.getKlub().getId());
-        ps.setInt(3, ucesnik.getIgrac().getId());
-        ps.setInt(4, ucesnik.getPozicija());
-        ps.execute();
-    }
-      public void napraviUtakmicu(Utakmica utakmica) throws SQLException {
-        String upit = "INSERT INTO Utakmica(datum,domacin,gost,turnir) values(?,?,?)";
-        PreparedStatement ps = connection.prepareStatement(upit);
-        ps.setDate(1, new java.sql.Date(utakmica.getDatum().getTime()));
-        ps.setInt(2, utakmica.getDomacin().getIgrac().getId());
-        ps.setDouble(3, utakmica.getDomacin().get);
+        ps.setInt(2, ucesnik.getTurnir().getId());
+        ps.setInt(3, ucesnik.getKlub().getId());
+        ps.setInt(4, ucesnik.getMesto());
         ps.execute();
     }
 
+    public void napraviUtakmicu(Utakmica utakmica, Turnir t) throws SQLException {
+        String upit = "INSERT INTO Utakmica(domacin,gost,datum,turnir) values(?,?,?,?)";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getDomacin().getId());
+        ps.setInt(2, utakmica.getGost().getId());
+        ps.setDate(3, new java.sql.Date(utakmica.getDatum().getTime()));
+        ps.setInt(4, t.getId());
+        ps.execute();
+    }
 
     public int vratiMiZaTurnirID() throws SQLException {
         int broj = 0;
@@ -175,40 +175,27 @@ public class DBBroker {
             int id = rs.getInt("id");
             String naziv = rs.getString("naziv");
             java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
-            Ucesnik u;
-            Turnir t = new Turnir();
-            t.setId(id);
-            t.setDatum(datum);
-            t.setNaziv(naziv);
-            t.setPobednik(null);
-            int pobednikid = rs.getInt("pobednik");
-            if (pobednikid == -1) {
-                u = null;
-            } else {
-                u = vratiMiPobednika(t);
-            }
-            t.setPobednik(u);
+            Turnir t = new Turnir(id, naziv, datum);
             lista.add(t);
         }
         return lista;
     }
 
-    private Ucesnik vratiMiPobednika(Turnir t) throws SQLException {
-        String upit = "Select * from Ucesnik where turnir=" + t.getId() + " and mesto=" + 1;
-        Statement stat = connection.createStatement();
-        ResultSet rs = stat.executeQuery(upit);
-        Ucesnik u = new Ucesnik();
-        while (rs.next()) {
-            int igracid = rs.getInt("igrac");
-            int klubid = rs.getInt("klub");
-            int mesto = rs.getInt("mesto");
-            Igrac i = vratiMiIgraca(igracid);
-            Klub k = vratiMiKlub(klubid);
-            u = new Ucesnik(i, k, t, mesto);
-        }
-        return u;
-    }
-
+//    private Ucesnik vratiMiPobednika(Turnir t) throws SQLException {
+//        String upit = "Select * from Ucesnik where turnir=" + t.getId() + " and mesto=" + 1;
+//        Statement stat = connection.createStatement();
+//        ResultSet rs = stat.executeQuery(upit);
+//        Ucesnik u = new Ucesnik();
+//        while (rs.next()) {
+//            int igracid = rs.getInt("igrac");
+//            int klubid = rs.getInt("klub");
+//            int mesto = rs.getInt("mesto");
+//            Igrac i = vratiMiIgraca(igracid);
+//            Klub k = vratiMiKlub(klubid);
+//            u = new Ucesnik(i, k, t, mesto);
+//        }
+//        return u;
+//    }
     private Igrac vratiMiIgraca(int igracid) throws SQLException {
         String upit = "Select * from Igrac where id=" + igracid;
         Statement stat = connection.createStatement();
@@ -249,22 +236,77 @@ public class DBBroker {
             int id = rs.getInt("id");
             String naziv = rs.getString("naziv");
             java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
-            Ucesnik u;
-            t = new Turnir();
-            t.setId(id);
-            t.setDatum(datum);
-            t.setNaziv(naziv);
-            t.setPobednik(null);
-            int pobednikid = rs.getInt("pobednik");
-            if (pobednikid == -1) {
-                u = null;
-            } else {
-                u = vratiMiPobednika(t);
-            }
-            t.setPobednik(u);
+            t = new Turnir(id, naziv, datum);
         }
         return t;
     }
 
-  
+    public ArrayList<Ucesnik> vratiMiSveUcesnikeTurnira(Turnir t2) throws SQLException {
+        ArrayList<Ucesnik> lista = new ArrayList<>();
+        String upit = "Select * from Ucesnik where turnir=" + t2.getId();
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int igrac = rs.getInt("igrac");
+            Igrac i = vratiMiIgraca(igrac);
+            int turnir = rs.getInt("turnir");
+            Turnir t = vratiMiTurnir(turnir);
+            int klub = rs.getInt("klub");
+            Klub k = vratiMiKlub(klub);
+            int mesto = rs.getInt("mesto");
+            Ucesnik u = new Ucesnik(id, i, t, k, mesto);
+            lista.add(u);
+        }
+        return lista;
+    }
+
+    public ArrayList<Utakmica> vratiMiSveUtakmiceTurnira(Turnir t2) throws SQLException {
+        ArrayList<Utakmica> lista = new ArrayList<>();
+        String upit = "Select * from Utakmica where turnir=" + t2.getId() + " order by domacin";
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        while (rs.next()) {
+            int d = rs.getInt("domacin");
+            Ucesnik domacin = vratiMiUcesnika(d);
+            int g = rs.getInt("gost");
+            Ucesnik gost = vratiMiUcesnika(g);
+            java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
+            int golDomacin = rs.getInt("golDomacin");
+            int golGost = rs.getInt("golGost");
+            Utakmica u = new Utakmica(domacin, gost, datum, golDomacin, golGost);
+            lista.add(u);
+        }
+        return lista;
+    }
+
+    private Ucesnik vratiMiUcesnika(int id2) throws SQLException {
+        String upit = "Select * from Ucesnik where id=" + id2;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Ucesnik u = new Ucesnik();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            int igrac = rs.getInt("igrac");
+            Igrac i = vratiMiIgraca(igrac);
+            int turnir = rs.getInt("turnir");
+            Turnir t = vratiMiTurnir(turnir);
+            int klub = rs.getInt("klub");
+            Klub k = vratiMiKlub(klub);
+            int mesto = rs.getInt("mesto");
+            u = new Ucesnik(id, i, t, k, mesto);
+        }
+        return u;
+    }
+
+    public void izmeniUtakmicu(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Utakmica Utakmica SET golDomacin =?, golGost=? where domacin = ? AND gost = ?";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolDomacin());
+        ps.setInt(2, utakmica.getGolGost());
+        ps.setInt(3, utakmica.getDomacin().getId());
+        ps.setInt(4, utakmica.getGost().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
 }

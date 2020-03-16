@@ -73,4 +73,14 @@ public class ModelTabeleIgracaZaTurnir extends AbstractTableModel {
         osveziTabelu();
     }
 
+    public void obrisiTabelu() {
+        lista = new ArrayList<>();
+        osveziTabelu();
+    }
+
+    public void setLista(List<Ucesnik> lista) {
+        this.lista = lista;
+        osveziTabelu();
+    }
+
 }
