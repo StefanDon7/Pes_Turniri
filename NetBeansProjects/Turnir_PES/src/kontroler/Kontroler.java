@@ -9,6 +9,7 @@ import db.DBBroker;
 import domen.Igrac;
 import domen.Klub;
 import domen.Liga;
+import domen.Statistika;
 import domen.Turnir;
 import domen.Ucesnik;
 import domen.Utakmica;
@@ -349,6 +350,130 @@ public class Kontroler {
             for (Utakmica utakmica : lista) {
                 db.izmeniUtakmicu(utakmica);
             }
+            uspesno = true;
+            db.commitTransaction();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return uspesno;
+    }
+
+    public int vratiMiMaxIdZaIgraca() {
+        int i = 0;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            i = db.vratiMiMaxIdZaIgraca();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return i;
+    }
+
+    public int vratiMiMaxIdZaKlubove() {
+        int i = 0;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            i = db.vratiMiMaxIdZaKlubove();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return i;
+    }
+
+    public boolean unesiStatistiku(Statistika s) {
+        boolean uspesno = false;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            db.unesiStatistiku(s);
+            uspesno = true;
+            db.commitTransaction();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                db.rollbackTransaction();
+            } catch (SQLException ex1) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return uspesno;
+    }
+
+    public Statistika vratiMiStatistiku(Ucesnik ucesnikGlavni, Ucesnik ucesnikSporedni) {
+        Statistika s = null;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            s = db.vratiMiStatistiku(ucesnikGlavni, ucesnikSporedni);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return s;
+    }
+
+    public boolean napraviStatistiku(Statistika s) {
+        boolean uspesno = false;
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            db.unesiStatistiku(s);
             uspesno = true;
             db.commitTransaction();
         } catch (ClassNotFoundException ex) {

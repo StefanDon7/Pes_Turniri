@@ -8,6 +8,7 @@ package form;
 import domen.Igrac;
 import domen.Klub;
 import domen.Liga;
+import domen.Statistika;
 import domen.Turnir;
 import domen.Ucesnik;
 import domen.Utakmica;
@@ -551,6 +552,21 @@ public class FormaGlavna extends javax.swing.JFrame {
         for (Utakmica utakmica : listaUtakmica) {
             System.out.println(utakmica.toString());
         }
+        for (Ucesnik ucesnikGlavni : listaUcesnika) {
+            for (Ucesnik ucesnikSporedni : listaUcesnika) {
+                if (ucesnikGlavni != ucesnikSporedni) {
+                    Statistika stat = Kontroler.getInstance().vratiMiStatistiku(ucesnikGlavni, ucesnikSporedni);
+                    if (stat == null) {
+                        boolean uspesno = Kontroler.getInstance().napraviStatistiku(new Statistika(ucesnikGlavni.getIgrac(), ucesnikSporedni.getIgrac(), 0, 0, 0, 0, 0));
+                        if (!uspesno) {
+                            JOptionPane.showMessageDialog(this, "Problem sa unosom statistike!");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         boolean uspesnoUtakmice = Kontroler.getInstance().unesiUtakmice(listaUtakmica, t);
         if (uspesnoTurnir && uspesnoUcesnici && uspesnoUtakmice) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen turnir!");
@@ -565,7 +581,8 @@ public class FormaGlavna extends javax.swing.JFrame {
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
         String nadimak = txtNadimak.getText();
-        Igrac i = new Igrac(-1, ime, prezime, nadimak);
+        int maxid = Kontroler.getInstance().vratiMiMaxIdZaIgraca();
+        Igrac i = new Igrac(maxid, ime, prezime, nadimak);
         txtIme.setText("");
         txtPrezime.setText("");
         txtNadimak.setText("");
@@ -573,18 +590,24 @@ public class FormaGlavna extends javax.swing.JFrame {
         if (uspesno) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen igrac!");
             cmbIgrac.addItem(i);
-
-            return;
+            Igrac isporedni = new Igrac();
+            isporedni.setId(-1);
+            Statistika s = new Statistika(i, isporedni, 0, 0, 0, 0, 0);
+            boolean uspesnoStatistika = Kontroler.getInstance().unesiStatistiku(s);
+            if (uspesnoStatistika) {
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "GRESKA! \nStatistika!");
         }
-        JOptionPane.showMessageDialog(this, "GRESKA!");
-
+        JOptionPane.showMessageDialog(this, "GRESKA! \nIgrac!");
     }//GEN-LAST:event_btnNapraviIgracaActionPerformed
 
     private void btnNapraviKlubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviKlubActionPerformed
         String naziv = txtImeKluba.getText();
         Liga l = (Liga) cmbLiga.getSelectedItem();
         double brojZvezdica = (double) spinerBrojZvezdica.getValue();
-        Klub k = new Klub(-1, naziv, l, brojZvezdica);
+        int maxid = Kontroler.getInstance().vratiMiMaxIdZaKlubove();
+        Klub k = new Klub(maxid, naziv, l, brojZvezdica);
         txtImeKluba.setText("");
         boolean uspesno = Kontroler.getInstance().unesiKlub(k);
         if (uspesno) {

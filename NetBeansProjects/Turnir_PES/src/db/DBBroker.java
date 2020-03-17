@@ -8,6 +8,7 @@ package db;
 import domen.Igrac;
 import domen.Klub;
 import domen.Liga;
+import domen.Statistika;
 import domen.Turnir;
 import domen.Ucesnik;
 import domen.Utakmica;
@@ -149,20 +150,22 @@ public class DBBroker {
     }
 
     public void napraviIgraca(Igrac i) throws SQLException {
-        String upit = "INSERT INTO IGRAC(ime,prezime,korisnickoIme) values(?,?,?)";
+        String upit = "INSERT INTO IGRAC(id,ime,prezime,korisnickoIme) values(?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
-        ps.setString(1, i.getIme());
-        ps.setString(2, i.getPrezime());
-        ps.setString(3, i.getKorisnickoIme());
+        ps.setInt(1, i.getId());
+        ps.setString(2, i.getIme());
+        ps.setString(3, i.getPrezime());
+        ps.setString(4, i.getKorisnickoIme());
         ps.execute();
     }
 
     public void napraviKlub(Klub k) throws SQLException {
-        String upit = "INSERT INTO Klub(naziv,ligaID,brojZvezdica) values(?,?,?)";
+        String upit = "INSERT INTO Klub(id,naziv,ligaID,brojZvezdica) values(?,?,?,?)";
         PreparedStatement ps = connection.prepareStatement(upit);
-        ps.setString(1, k.getNaziv());
-        ps.setInt(2, k.getLiga().getId());
-        ps.setDouble(3, k.getBrojZvezdica());
+        ps.setInt(1, k.getId());
+        ps.setString(2, k.getNaziv());
+        ps.setInt(3, k.getLiga().getId());
+        ps.setDouble(4, k.getBrojZvezdica());
         ps.execute();
     }
 
@@ -309,4 +312,62 @@ public class DBBroker {
         ps.executeUpdate();
         ps.close();
     }
+
+    public int vratiMiMaxIdZaIgraca() throws SQLException {
+        int max = 0;
+        String upit = "Select max(id) as max from Igrac";
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        while (rs.next()) {
+            max = rs.getInt("max");
+            max++;
+        }
+        return max;
+    }
+
+    public int vratiMiMaxIdZaKlubove() throws SQLException {
+        int max = 0;
+        String upit = "Select max(id) as max from Klub";
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        while (rs.next()) {
+            max = rs.getInt("max");
+            max++;
+        }
+        return max;
+    }
+
+    public void unesiStatistiku(Statistika s) throws SQLException {
+        String upit = "INSERT INTO Statistika(igracGlavni,igracSporedni,brojGolovaDatih,brojGolovaPrimljenih,brojPobeda,brojNeresenih,brojPoraza) values(?,?,?,?,?,?,?)";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, s.getIgracGlavni().getId());
+        ps.setInt(2, s.getIgracSporedni().getId());
+        ps.setInt(3, s.getUkupnoDatihGolova());
+        ps.setInt(4, s.getUkupnoPrimljenihGolova());
+        ps.setInt(5, s.getUkupnoPobeda());
+        ps.setInt(6, s.getUkupnoNeresenih());
+        ps.setInt(7, s.getUkupnoIzgubljenih());
+        ps.execute();
+    }
+
+    public Statistika vratiMiStatistiku(Ucesnik ucesnikGlavni, Ucesnik ucesnikSporedni) throws SQLException {
+        String upit = "Select * from Statistika where igracGlavni=" + ucesnikGlavni.getIgrac().getId() + " and igracsporedni=" + ucesnikSporedni.getIgrac().getId();
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Statistika s = null;
+        while (rs.next()) {
+            int igracGlavni = rs.getInt("igracGlavni");
+            Igrac glavni = vratiMiIgraca(igracGlavni);
+            int IgracSporedni = rs.getInt("igracSporedni");
+            Igrac sporedni = vratiMiIgraca(IgracSporedni);
+            int brojGolovaDatih = rs.getInt("brojGolovaDatih");
+            int brojGolovaPrimljenih = rs.getInt("brojGolovaPrimljenih");
+            int pobede = rs.getInt("brojPobeda");
+            int neresene = rs.getInt("brojNeresenih");
+            int izgubljene = rs.getInt("brojPoraza");
+            s = new Statistika(glavni, sporedni, pobede, neresene, izgubljene, brojGolovaDatih, brojGolovaPrimljenih);
+        }
+        return s;
+    }
+
 }
