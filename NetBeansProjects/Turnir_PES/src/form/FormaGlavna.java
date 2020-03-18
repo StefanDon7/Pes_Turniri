@@ -12,9 +12,12 @@ import domen.Statistika;
 import domen.Turnir;
 import domen.Ucesnik;
 import domen.Utakmica;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import kontroler.Kontroler;
 import modeliTabela.ModelTabelaStatistikeIgraca;
 import modeliTabela.ModelTabeleIgracaZaTurnir;
@@ -27,12 +30,11 @@ import modeliTabela.ModelTabeleTabelaBodova;
  * @author Dule
  */
 public class FormaGlavna extends javax.swing.JFrame {
-
+    
     modeliTabela.ModelTabeleIgracaZaTurnir mtizt = new ModelTabeleIgracaZaTurnir();
     modeliTabela.ModelTabeleListaTurnira mtt = new ModelTabeleListaTurnira();
     modeliTabela.ModelTabeleTabelaBodova mtb = new ModelTabeleTabelaBodova();
     modeliTabela.ModelTabeleListaUtakmica mtlu = new ModelTabeleListaUtakmica();
-    modeliTabela.ModelTabelaStatistikeIgraca mtsi = new ModelTabelaStatistikeIgraca();
     modeliTabela.ModelTabeleIgracaZaTurnir mtizt2 = new ModelTabeleIgracaZaTurnir();
 
     /**
@@ -42,13 +44,14 @@ public class FormaGlavna extends javax.swing.JFrame {
         initComponents();
         this.setSize(1550, 1000);
         ucitajModeleTabela();
-
+        
         ucitajPanel();
         ucitajMiSveKlubove();
         ucitajMiSveIgrace();
         ucitajMiSveLige();
         ucitajModelTabele();
-
+        ulepsajTabele();
+        
     }
 
     /**
@@ -65,6 +68,18 @@ public class FormaGlavna extends javax.swing.JFrame {
         tabelaStatistika = new javax.swing.JTable();
         cmbIgracStatistika = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblPrimljeni = new javax.swing.JLabel();
+        lblDatiGolovi = new javax.swing.JLabel();
+        lblIzgubljene = new javax.swing.JLabel();
+        lblNeresene = new javax.swing.JLabel();
+        lblLicnePobede = new javax.swing.JLabel();
         panelTabelaTurniri = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaUtakmica = new javax.swing.JTable();
@@ -136,12 +151,45 @@ public class FormaGlavna extends javax.swing.JFrame {
 
         cmbIgracStatistika.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbIgracStatistika.setSelectedIndex(-1);
+        cmbIgracStatistika.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbIgracStatistikaItemStateChanged(evt);
+            }
+        });
         panelStatistikaIgraca.add(cmbIgracStatistika);
         cmbIgracStatistika.setBounds(197, 36, 273, 26);
 
-        jLabel8.setText("jLabel8");
+        jLabel8.setText("Igrac:");
         panelStatistikaIgraca.add(jLabel8);
         jLabel8.setBounds(6, 39, 173, 20);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setText("LICNA STATISTIKA:");
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 40));
+
+        jLabel16.setText("Pobede:");
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 120, 40));
+
+        jLabel17.setText("Neresene:");
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 150, 40));
+
+        jLabel18.setText("Izgubljene:");
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 40));
+
+        jLabel19.setText("Dati golovi:");
+        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 150, 40));
+
+        jLabel20.setText("Primljeni golovi:");
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 140, 40));
+        jPanel4.add(lblPrimljeni, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 140, 40));
+        jPanel4.add(lblDatiGolovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 150, 40));
+        jPanel4.add(lblIzgubljene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 80, 40));
+        jPanel4.add(lblNeresene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 150, 40));
+        jPanel4.add(lblLicnePobede, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 120, 40));
+
+        panelStatistikaIgraca.add(jPanel4);
+        jPanel4.setBounds(190, 320, 600, 390);
 
         getContentPane().add(panelStatistikaIgraca);
         panelStatistikaIgraca.setBounds(6, 35, 1480, 950);
@@ -245,7 +293,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             }
         });
         panelTabelaTurniri.add(btnSacuvaj);
-        btnSacuvaj.setBounds(417, 410, 170, 32);
+        btnSacuvaj.setBounds(410, 410, 170, 32);
 
         getContentPane().add(panelTabelaTurniri);
         panelTabelaTurniri.setBounds(10, 33, 1480, 950);
@@ -517,7 +565,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = new Ucesnik(-1, i, null, k, mtizt.getRowCount() + 1);
         mtizt.dodajUcesnika(u);
     }//GEN-LAST:event_btnDodajIgracaZaTurnirActionPerformed
-
+    
     private void btnObrisiIgracaIzListeZaTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
         int broj = tabelaIgracaNaTurniru.getSelectedRow();
         if (broj == -1) {
@@ -527,7 +575,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = mtizt.getLista().get(broj);
         mtizt.obirisIzTabele(u);
     }//GEN-LAST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
-
+    
     private void btnKreirajTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajTurnirActionPerformed
         ArrayList<Ucesnik> listaUcesnika = (ArrayList<Ucesnik>) mtizt.getLista();
         String naziv = txtNazivTurnira.getText();
@@ -566,7 +614,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                 }
             }
         }
-
+        
         boolean uspesnoUtakmice = Kontroler.getInstance().unesiUtakmice(listaUtakmica, t);
         if (uspesnoTurnir && uspesnoUcesnici && uspesnoUtakmice) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen turnir!");
@@ -574,9 +622,9 @@ public class FormaGlavna extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "GRESKA!");
         }
         mtizt.obrisiTabelu();
-
+        
     }//GEN-LAST:event_btnKreirajTurnirActionPerformed
-
+    
     private void btnNapraviIgracaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviIgracaActionPerformed
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
@@ -601,7 +649,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "GRESKA! \nIgrac!");
     }//GEN-LAST:event_btnNapraviIgracaActionPerformed
-
+    
     private void btnNapraviKlubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviKlubActionPerformed
         String naziv = txtImeKluba.getText();
         Liga l = (Liga) cmbLiga.getSelectedItem();
@@ -616,28 +664,28 @@ public class FormaGlavna extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(this, "GRESKA!");
-
+        
     }//GEN-LAST:event_btnNapraviKlubActionPerformed
-
+    
     private void btnNapraviTabeluMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviTabeluMeniActionPerformed
         panelNapraviTurnir.setVisible(true);
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }//GEN-LAST:event_btnNapraviTabeluMeniActionPerformed
-
+    
     private void cmbTabeleMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTabeleMeniActionPerformed
         panelNapraviTurnir.setVisible(false);
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(true);
         ucitajTurnire();
     }//GEN-LAST:event_cmbTabeleMeniActionPerformed
-
+    
     private void btnStatistikaMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistikaMeniActionPerformed
         panelNapraviTurnir.setVisible(false);
         panelStatistikaIgraca.setVisible(true);
         panelTabelaTurniri.setVisible(false);
     }//GEN-LAST:event_btnStatistikaMeniActionPerformed
-
+    
     private void tabelaTurniraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaTurniraMouseClicked
         int broj = tabelaTurnira.getSelectedRow();
         Turnir turnir = mtt.getLista().get(broj);
@@ -648,15 +696,35 @@ public class FormaGlavna extends javax.swing.JFrame {
         mtb.setListaUtakmica(listaUtakmica);
         mtb.setListaUcesnika(listaUcesnika);
     }//GEN-LAST:event_tabelaTurniraMouseClicked
-
+    
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         ArrayList<Utakmica> lista = (ArrayList<Utakmica>) mtlu.getLista();
+        // ArrayList<Igrac> listaIgraca = vratiMiListuIgraca(lista);
+        //ArrayList<Statistika> listaStatistike=vratiMiListuStatistika(lista,listaIgraca)
         boolean izmeniListu = Kontroler.getInstance().sacuvajRezultateUtakmice(lista);
         if (izmeniListu) {
             JOptionPane.showMessageDialog(this, "Uspesno!");
             pokupiRezultate(lista);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+    
+    private void cmbIgracStatistikaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbIgracStatistikaItemStateChanged
+        ModelTabelaStatistikeIgraca mtsi = new ModelTabelaStatistikeIgraca();
+        Igrac i = (Igrac) cmbIgracStatistika.getSelectedItem();
+        ArrayList<Statistika> lista = Kontroler.getInstance().vratiMiSveStatistikeZaIgraca(i);
+        Statistika licna = new Statistika();
+        licna = lista.get(0);
+        lista.remove(0);
+        mtsi.setLista(lista);
+        tabelaStatistika.setModel(mtsi);
+        lblDatiGolovi.setText(licna.getUkupnoDatihGolova() + "");
+        lblPrimljeni.setText(licna.getUkupnoPrimljenihGolova() + "");
+        lblLicnePobede.setText(licna.getUkupnoPobeda() + "");
+        lblNeresene.setText(licna.getUkupnoNeresenih() + "");
+        lblIzgubljene.setText(licna.getUkupnoIzgubljenih() + "");
+        //lblUkupnoOdigranih.setText(licna.getUkupnoIzgubljenih() + licna.getUkupnoNeresenih() + licna.getUkupnoPobeda() + "");
+
+    }//GEN-LAST:event_cmbIgracStatistikaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -713,7 +781,13 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -724,6 +798,7 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -731,6 +806,11 @@ public class FormaGlavna extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblDatiGolovi;
+    private javax.swing.JLabel lblIzgubljene;
+    private javax.swing.JLabel lblLicnePobede;
+    private javax.swing.JLabel lblNeresene;
+    private javax.swing.JLabel lblPrimljeni;
     private javax.swing.JPanel panelNapraviTurnir;
     private javax.swing.JPanel panelStatistikaIgraca;
     private javax.swing.JPanel panelTabelaTurniri;
@@ -753,7 +833,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }
-
+    
     private void ucitajMiSveKlubove() {
         cmbKlub.removeAllItems();
         ArrayList<Klub> klubovi = Kontroler.getInstance().vratiMiSveKlubove();
@@ -761,7 +841,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbKlub.addItem(klub);
         }
     }
-
+    
     private void ucitajMiSveIgrace() {
         cmbIgrac.removeAllItems();
         cmbIgracStatistika.removeAllItems();
@@ -771,7 +851,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbIgracStatistika.addItem(igrac);
         }
     }
-
+    
     private void ucitajMiSveLige() {
         cmbLiga.removeAllItems();
         ArrayList<Liga> lige = Kontroler.getInstance().vratiMiSveLige();
@@ -779,18 +859,18 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbLiga.addItem(liga);
         }
     }
-
+    
     private void ucitajModelTabele() {
         tabelaIgracaNaTurniru.setModel(mtizt);
     }
-
+    
     private void ucitajTurnire() {
         ArrayList<Turnir> lista = kontroler.Kontroler.getInstance().vratiMiSveTurnire();
         tabelaTurnira.setModel(mtt);
         mtt.setLista(lista);
         mtt.fireTableDataChanged();
     }
-
+    
     private ArrayList<Utakmica> napraviUtakmice(ArrayList<Ucesnik> listaUcesnika) {
         ArrayList<Utakmica> trazenaLista = new ArrayList<>();
         for (Ucesnik ucesnik : listaUcesnika) {
@@ -809,7 +889,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         return trazenaLista;
     }
-
+    
     private boolean daLiPostojiUListiUtakmice(Utakmica u, ArrayList<Utakmica> trazenaLista) {
         for (Utakmica utakmica : trazenaLista) {
             if (u.getDomacin().equals(utakmica.getDomacin()) && u.getGost().equals(utakmica.getGost())) {
@@ -818,18 +898,51 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         return false;
     }
-
+    
     private void ucitajModeleTabela() {
         tabelaTabela.setModel(mtb);
         tabelaUtakmica.setModel(mtlu);
         tabelaUcesnika.setModel(mtizt2);
         tabelaStatistika.setModel(mtizt);
     }
-
+    
     private void pokupiRezultate(ArrayList<Utakmica> lista) {
         ArrayList<Ucesnik> listaUcesnika = (ArrayList<Ucesnik>) mtizt2.getLista();
         mtb.setListaUcesnika(listaUcesnika);
         mtb.setListaUtakmica(lista);
     }
 
+//    private ArrayList<Igrac> vratiMiListuIgraca(ArrayList<Utakmica> lista) {
+//        ArrayList<Igrac> listaIgraca = new ArrayList<>();
+//        for (Utakmica utakmica : lista) {
+//            if (!listaIgraca.contains(utakmica.getDomacin())) {
+//                listaIgraca.add(utakmica.getDomacin().getIgrac());
+//            }
+//            if (!listaIgraca.contains(utakmica.getGost())) {
+//                listaIgraca.add(utakmica.getGost().getIgrac());
+//            }
+//        }
+//        return listaIgraca;
+//    }
+    public void ulepsajTabelu(JTable tabela) {
+        tabela.setRowHeight(25);
+        tabela.setFocusable(false);
+        tabela.setShowVerticalLines(false);
+        tabela.setSelectionBackground(Color.LIGHT_GRAY);
+        tabela.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabela.getTableHeader().setOpaque(false);
+        tabela.getTableHeader().setBackground(new Color(34, 47, 115));
+        tabela.getTableHeader().setBackground(Color.red);
+        tabela.getTableHeader().setForeground(new Color(34, 47, 115));
+        tabela.setRowHeight(25);
+    }
+    
+    private void ulepsajTabele() {
+        ulepsajTabelu(tabelaIgracaNaTurniru);
+        ulepsajTabelu(tabelaStatistika);
+        ulepsajTabelu(tabelaTabela);
+        ulepsajTabelu(tabelaTurnira);
+        ulepsajTabelu(tabelaUcesnika);
+        ulepsajTabelu(tabelaUtakmica);
+    }
 }

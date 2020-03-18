@@ -370,4 +370,251 @@ public class DBBroker {
         return s;
     }
 
+    public void sacuvajStatistikuPojedinacnuDomacin(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih+?, brojPobeda=brojPobeda+?, brojNeresenih=brojNeresenih+?, brojPoraza=brojPoraza+?, brojGolovaPrimljenih = brojGolovaPrimljenih+? WHERE igracGlavni =? AND igracSporedni = -1";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolDomacin());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolGost());
+        ps.setInt(6, utakmica.getDomacin().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void sacuvajStatistikuZajednickuDomacin(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih+?,brojPobeda=brojPobeda+?, brojNeresenih=brojNeresenih+?, brojPoraza=brojPoraza+?, brojGolovaPrimljenih = brojGolovaPrimljenih+? WHERE igracGlavni =? AND igracSporedni =?";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolDomacin());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolGost());
+        ps.setInt(6, utakmica.getDomacin().getIgrac().getId());
+        ps.setInt(7, utakmica.getGost().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void sacuvajStatistikuPojedinacnuGost(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih+?,brojPobeda=brojPobeda+?, brojNeresenih=brojNeresenih+?, brojPoraza=brojPoraza+?, brojGolovaPrimljenih = brojGolovaPrimljenih+? WHERE igracGlavni =? AND igracSporedni = -1";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolGost());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolDomacin());
+        ps.setInt(6, utakmica.getGost().getIgrac().getId());
+
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public void sacuvajStatistikuZajednickuGost(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih+?, brojPobeda=brojPobeda+?, brojNeresenih=brojNeresenih+?, brojPoraza=brojPoraza+?,brojGolovaPrimljenih = brojGolovaPrimljenih+? WHERE igracGlavni =? AND igracSporedni =?";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        ps.setInt(1, utakmica.getGolGost());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolDomacin());
+        ps.setInt(6, utakmica.getGost().getIgrac().getId());
+        ps.setInt(7, utakmica.getDomacin().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    public ArrayList<Statistika> vratiMiStatistiku(Igrac i) throws SQLException {
+        ArrayList<Statistika> lista = new ArrayList<>();
+        String upit = "Select * from Statistika where igracGlavni=" + i.getId() + " order by igracsporedni asc";
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Statistika s = null;
+        while (rs.next()) {
+            int igracGlavni = rs.getInt("igracGlavni");
+            Igrac glavni = vratiMiIgraca(igracGlavni);
+            int IgracSporedni = rs.getInt("igracSporedni");
+            Igrac sporedni = vratiMiIgraca(IgracSporedni);
+            int brojGolovaDatih = rs.getInt("brojGolovaDatih");
+            int brojGolovaPrimljenih = rs.getInt("brojGolovaPrimljenih");
+            int pobede = rs.getInt("brojPobeda");
+            int neresene = rs.getInt("brojNeresenih");
+            int izgubljene = rs.getInt("brojPoraza");
+            s = new Statistika(glavni, sporedni, pobede, neresene, izgubljene, brojGolovaDatih, brojGolovaPrimljenih);
+            lista.add(s);
+        }
+        return lista;
+    }
+
+    public boolean utakmicaPostojiAlSeMenjaRezultat(Utakmica utakmica) throws SQLException {
+        boolean postoji = false;
+        Utakmica u = vratiMiUtakmicu(utakmica.getDomacin().getId(), utakmica.getGost().getId());
+        if (u.getGolGost() != -1 && u.getGolDomacin() != -1) {
+            if (u.getGolDomacin() == utakmica.getGolDomacin() && u.getGolGost() == u.getGolGost()) {
+                postoji = true;
+            } else {
+                izmeniStatistikuZaPojedincaDomacin(u);
+                izmeniStatistikuZaZajednickuDomacin(u);
+                izmeniStatistikuZaPojedincaGost(u);
+                izmeniStatistikuZaZajednickuGost(u);
+            }
+        }
+        return postoji;
+    }
+
+    private Utakmica vratiMiUtakmicu(int id, int id0) throws SQLException {
+        String upit = "Select * from Utakmica where domacin=" + id + " and gost=" + id0;
+        Statement stat = connection.createStatement();
+        ResultSet rs = stat.executeQuery(upit);
+        Utakmica utakmica = new Utakmica();
+        while (rs.next()) {
+            int d = rs.getInt("domacin");
+            Ucesnik domacin = vratiMiUcesnika(d);
+            int g = rs.getInt("gost");
+            Ucesnik gost = vratiMiUcesnika(g);
+            java.util.Date datum = new java.util.Date(rs.getDate("datum").getTime());
+            int golDomacin = rs.getInt("golDomacin");
+            int golGost = rs.getInt("golGost");
+            utakmica = new Utakmica(domacin, gost, datum, golDomacin, golGost);
+        }
+
+        return utakmica;
+    }
+
+    private void izmeniStatistikuZaPojedincaDomacin(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih-?, brojPobeda=brojPobeda-?, brojNeresenih=brojNeresenih-?, brojPoraza=brojPoraza-?, brojGolovaPrimljenih = brojGolovaPrimljenih-? WHERE igracGlavni =? AND igracSporedni = -1";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolDomacin());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolGost());
+        ps.setInt(6, utakmica.getDomacin().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    private void izmeniStatistikuZaZajednickuDomacin(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih-?,brojPobeda=brojPobeda-?, brojNeresenih=brojNeresenih-?, brojPoraza=brojPoraza-?, brojGolovaPrimljenih = brojGolovaPrimljenih-? WHERE igracGlavni =? AND igracSporedni =?";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolDomacin());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolGost());
+        ps.setInt(6, utakmica.getDomacin().getIgrac().getId());
+        ps.setInt(7, utakmica.getGost().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    private void izmeniStatistikuZaPojedincaGost(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih-?,brojPobeda=brojPobeda-?, brojNeresenih=brojNeresenih-?, brojPoraza=brojPoraza-?, brojGolovaPrimljenih = brojGolovaPrimljenih-? WHERE igracGlavni =? AND igracSporedni = -1";
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        PreparedStatement ps = connection.prepareStatement(upit);
+        ps.setInt(1, utakmica.getGolGost());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolDomacin());
+        ps.setInt(6, utakmica.getGost().getIgrac().getId());
+
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    private void izmeniStatistikuZaZajednickuGost(Utakmica utakmica) throws SQLException {
+        String upit = "UPDATE Statistika SET brojGolovaDatih = brojGolovaDatih-?, brojPobeda=brojPobeda-?, brojNeresenih=brojNeresenih-?, brojPoraza=brojPoraza-?,brojGolovaPrimljenih = brojGolovaPrimljenih-? WHERE igracGlavni =? AND igracSporedni =?";
+        PreparedStatement ps = connection.prepareStatement(upit);
+        int pobeda = 0;
+        int nereseno = 0;
+        int izgubljena = 0;
+        if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+            pobeda++;
+        } else if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+            izgubljena++;
+        } else {
+            nereseno++;
+        }
+        ps.setInt(1, utakmica.getGolGost());
+        ps.setInt(2, pobeda);
+        ps.setInt(3, nereseno);
+        ps.setInt(4, izgubljena);
+        ps.setInt(5, utakmica.getGolDomacin());
+        ps.setInt(6, utakmica.getGost().getIgrac().getId());
+        ps.setInt(7, utakmica.getDomacin().getIgrac().getId());
+        ps.executeUpdate();
+        ps.close();
+    }
+
 }

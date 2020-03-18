@@ -348,7 +348,16 @@ public class Kontroler {
             db.ucitajDrajver();
             db.otvoriKonekciju();
             for (Utakmica utakmica : lista) {
-                db.izmeniUtakmicu(utakmica);
+                if (utakmica.getGolDomacin() != -1 && utakmica.getGolGost() != -1) {
+                    if (!db.utakmicaPostojiAlSeMenjaRezultat(utakmica)) {
+                        db.sacuvajStatistikuPojedinacnuDomacin(utakmica);
+                        db.sacuvajStatistikuZajednickuDomacin(utakmica);
+                        db.sacuvajStatistikuPojedinacnuGost(utakmica);
+                        db.sacuvajStatistikuZajednickuGost(utakmica);
+                        db.izmeniUtakmicu(utakmica);
+                    }
+
+                }
             }
             uspesno = true;
             db.commitTransaction();
@@ -498,6 +507,26 @@ public class Kontroler {
             }
         }
         return uspesno;
+    }
+
+    public ArrayList<Statistika> vratiMiSveStatistikeZaIgraca(Igrac i) {
+        ArrayList<Statistika> lista = new ArrayList<>();
+        try {
+            db.ucitajDrajver();
+            db.otvoriKonekciju();
+            lista = db.vratiMiStatistiku(i);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                db.zatvoriKonekciju();
+            } catch (SQLException ex) {
+                Logger.getLogger(Kontroler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lista;
     }
 
 }
