@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleIgracaZaTurnir extends AbstractTableModel {
 
     List<Ucesnik> lista = new ArrayList<Ucesnik>();
-    String[] kolone = {"Redni broj", "Ime i prezime", "Klub"};
+    String[] kolone = {"R.B.", "Ime i prezime", "Klub"};
 
     public ModelTabeleIgracaZaTurnir() {
         lista = new ArrayList<>();

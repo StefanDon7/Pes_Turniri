@@ -41,7 +41,7 @@ public class ModelTabeleTabelaBodova extends AbstractTableModel {
         Ucesnik u = listaUcesnika.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return u.getMesto();
+                return ++rowIndex;
             case 1:
                 return u.getKlub().getNaziv();
             case 2:
@@ -53,7 +53,7 @@ public class ModelTabeleTabelaBodova extends AbstractTableModel {
             case 5:
                 return vratiBrojIzgubljenih(u);
             case 6:
-                return vratiGolRazliku(u);
+                return vratiGolRazlikuZaTabelu(u);
             case 7:
                 return vratiBrojBodova(u);
             default:
@@ -127,22 +127,8 @@ public class ModelTabeleTabelaBodova extends AbstractTableModel {
         return broj;
     }
 
-    private Object vratiGolRazliku(Ucesnik u) {
-        int brojDatih = 0;
-        int brojPrimljenih = 0;
-        for (Utakmica utakmica : listaUtakmica) {
-            if (utakmica.getDomacin().equals(u) && utakmica.getGolDomacin() != -1) {
-                brojDatih += utakmica.getGolDomacin();
-                brojPrimljenih += utakmica.getGolGost();
-
-            }
-            if (utakmica.getGost().equals(u) && utakmica.getGolGost() != -1) {
-                brojPrimljenih += utakmica.getGolDomacin();
-                brojDatih += utakmica.getGolGost();
-
-            }
-        }
-        return brojDatih + ":" + brojPrimljenih;
+    private Object vratiGolRazlikuZaTabelu(Ucesnik u) {
+        return vratiBrojDatih(u) + ":" + vratiBrojPrimljenih(u);
     }
 
     private Object vratiBrojBodova(Ucesnik u) {
@@ -176,10 +162,113 @@ public class ModelTabeleTabelaBodova extends AbstractTableModel {
             public int compare(Ucesnik o1, Ucesnik o2) {
                 int brojBodova1 = (int) vratiBrojBodova(o1);
                 int brojBodova2 = (int) vratiBrojBodova(o2);
-                return brojBodova2 - brojBodova1;
+                if (brojBodova1 != brojBodova2) {
+                    return brojBodova2 - brojBodova1;
+                }
+                int brojBodovaMedjusobno = brojBodovaMedjusobno(o1, o2);
+                if (brojBodovaMedjusobno != 0) {
+                    return brojBodovaMedjusobno;
+                }
+                int vratiRazliku = vratiBrojGolovaUGostima(o1, o2);
+                if (vratiRazliku != 0) {
+                    return vratiRazliku;
+                }
+                int golRazlika = golRazlika(o1, o2);
+                if (golRazlika != 0) {
+                    return golRazlika;
+                }
+                int brojDatih = brojDatih(o1, o2);
+                if (brojDatih != 0) {
+                    return brojDatih;
+                } else {
+
+                }
+                return 0;
             }
 
         });
+    }
+
+    private int vratiBrojGolovaUGostima(Ucesnik o1, Ucesnik o2) {
+        int brojGolovaPrviUGostima = 0;
+        int brojGolovaDrugiUGostima = 0;
+        for (Utakmica u : listaUtakmica) {
+            if (u.getDomacin().equals(o1) && u.getGost().equals(o2)) {
+                brojGolovaDrugiUGostima += u.getGolGost();
+
+            }
+            if (u.getDomacin().equals(o2) && u.getGost().equals(o1)) {
+                brojGolovaPrviUGostima += u.getGolGost();
+            }
+        }
+        return brojGolovaDrugiUGostima - brojGolovaPrviUGostima;
+    }
+
+    private int golRazlika(Ucesnik o1, Ucesnik o2) {
+        return vratiGolRazliku(o2) - vratiGolRazliku(o1);
+    }
+
+    private int brojDatih(Ucesnik o1, Ucesnik o2) {
+        return vratiBrojDatih(o2) - vratiBrojDatih(o1);
+    }
+
+    private int brojBodovaMedjusobno(Ucesnik o1, Ucesnik o2) {
+        int brojBodovaPrvi = 0;
+        int brojBodovaDrugi = 0;
+        for (Utakmica utakmica : listaUtakmica) {
+            if (utakmica.getDomacin().equals(o1) && utakmica.getGost().equals(o2)) {
+                if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+                    brojBodovaPrvi += 3;
+                } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+                    brojBodovaDrugi += 3;
+                } else {
+                    brojBodovaDrugi++;
+                    brojBodovaPrvi++;
+                }
+            }
+            if (utakmica.getDomacin().equals(o2) && utakmica.getGost().equals(o1)) {
+                if (utakmica.getGolDomacin() > utakmica.getGolGost()) {
+                    brojBodovaDrugi += 3;
+                } else if (utakmica.getGolDomacin() < utakmica.getGolGost()) {
+                    brojBodovaPrvi += 3;
+                } else {
+                    brojBodovaDrugi++;
+                    brojBodovaPrvi++;
+                }
+            }
+        }
+        return brojBodovaDrugi - brojBodovaPrvi;
+    }
+
+    private int vratiBrojDatih(Ucesnik o1) {
+        int brojDatih = 0;
+        for (Utakmica utakmica : listaUtakmica) {
+            if (utakmica.getDomacin().equals(o1) && utakmica.getGolDomacin() != -1) {
+                brojDatih += utakmica.getGolDomacin();
+            }
+            if (utakmica.getGost().equals(o1) && utakmica.getGolGost() != -1) {
+                brojDatih += utakmica.getGolGost();
+            }
+        }
+        return brojDatih;
+    }
+
+    private int vratiBrojPrimljenih(Ucesnik o1) {
+        int brojPrimljenih = 0;
+        for (Utakmica utakmica : listaUtakmica) {
+            if (utakmica.getDomacin().equals(o1) && utakmica.getGolDomacin() != -1) {
+                brojPrimljenih += utakmica.getGolGost();
+            }
+            if (utakmica.getGost().equals(o1) && utakmica.getGolGost() != -1) {
+                brojPrimljenih += utakmica.getGolDomacin();
+
+            }
+        }
+        return brojPrimljenih;
+    }
+
+    private int vratiGolRazliku(Ucesnik o2) {
+        return vratiBrojDatih(o2) - vratiBrojPrimljenih(o2);
     }
 
 }

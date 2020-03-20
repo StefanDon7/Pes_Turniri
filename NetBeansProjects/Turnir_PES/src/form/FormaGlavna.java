@@ -30,7 +30,7 @@ import modeliTabela.ModelTabeleTabelaBodova;
  * @author Dule
  */
 public class FormaGlavna extends javax.swing.JFrame {
-    
+
     modeliTabela.ModelTabeleIgracaZaTurnir mtizt = new ModelTabeleIgracaZaTurnir();
     modeliTabela.ModelTabeleListaTurnira mtt = new ModelTabeleListaTurnira();
     modeliTabela.ModelTabeleTabelaBodova mtb = new ModelTabeleTabelaBodova();
@@ -44,14 +44,14 @@ public class FormaGlavna extends javax.swing.JFrame {
         initComponents();
         this.setSize(1550, 1000);
         ucitajModeleTabela();
-        
+
         ucitajPanel();
         ucitajMiSveKlubove();
         ucitajMiSveIgrace();
         ucitajMiSveLige();
         ucitajModelTabele();
         ulepsajTabele();
-        
+
     }
 
     /**
@@ -63,23 +63,6 @@ public class FormaGlavna extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelStatistikaIgraca = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tabelaStatistika = new javax.swing.JTable();
-        cmbIgracStatistika = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        lblPrimljeni = new javax.swing.JLabel();
-        lblDatiGolovi = new javax.swing.JLabel();
-        lblIzgubljene = new javax.swing.JLabel();
-        lblNeresene = new javax.swing.JLabel();
-        lblLicnePobede = new javax.swing.JLabel();
         panelTabelaTurniri = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaUtakmica = new javax.swing.JTable();
@@ -124,75 +107,29 @@ public class FormaGlavna extends javax.swing.JFrame {
         spinerBrojZvezdica = new javax.swing.JSpinner();
         cmbLiga = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
+        panelStatistikaIgraca = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelaStatistika = new javax.swing.JTable();
+        cmbIgracStatistika = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblPrimljeni = new javax.swing.JLabel();
+        lblDatiGolovi = new javax.swing.JLabel();
+        lblIzgubljene = new javax.swing.JLabel();
+        lblNeresene = new javax.swing.JLabel();
+        lblLicnePobede = new javax.swing.JLabel();
         btnNapraviTabeluMeni = new javax.swing.JButton();
         cmbTabeleMeni = new javax.swing.JButton();
         btnStatistikaMeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-
-        panelStatistikaIgraca.setLayout(null);
-
-        tabelaStatistika.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(tabelaStatistika);
-
-        panelStatistikaIgraca.add(jScrollPane5);
-        jScrollPane5.setBounds(6, 74, 858, 217);
-
-        cmbIgracStatistika.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbIgracStatistika.setSelectedIndex(-1);
-        cmbIgracStatistika.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbIgracStatistikaItemStateChanged(evt);
-            }
-        });
-        panelStatistikaIgraca.add(cmbIgracStatistika);
-        cmbIgracStatistika.setBounds(197, 36, 273, 26);
-
-        jLabel8.setText("Igrac:");
-        panelStatistikaIgraca.add(jLabel8);
-        jLabel8.setBounds(6, 39, 173, 20);
-
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setText("LICNA STATISTIKA:");
-        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 40));
-
-        jLabel16.setText("Pobede:");
-        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 120, 40));
-
-        jLabel17.setText("Neresene:");
-        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 150, 40));
-
-        jLabel18.setText("Izgubljene:");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 40));
-
-        jLabel19.setText("Dati golovi:");
-        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 150, 40));
-
-        jLabel20.setText("Primljeni golovi:");
-        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 140, 40));
-        jPanel4.add(lblPrimljeni, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 140, 40));
-        jPanel4.add(lblDatiGolovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 150, 40));
-        jPanel4.add(lblIzgubljene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 80, 40));
-        jPanel4.add(lblNeresene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 150, 40));
-        jPanel4.add(lblLicnePobede, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 120, 40));
-
-        panelStatistikaIgraca.add(jPanel4);
-        jPanel4.setBounds(190, 320, 600, 390);
-
-        getContentPane().add(panelStatistikaIgraca);
-        panelStatistikaIgraca.setBounds(6, 35, 1480, 950);
 
         panelTabelaTurniri.setLayout(null);
 
@@ -207,10 +144,11 @@ public class FormaGlavna extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaUtakmica.setSelectionBackground(new java.awt.Color(102, 102, 255));
         jScrollPane2.setViewportView(tabelaUtakmica);
 
         panelTabelaTurniri.add(jScrollPane2);
-        jScrollPane2.setBounds(20, 60, 570, 340);
+        jScrollPane2.setBounds(20, 60, 570, 330);
 
         tabelaTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -226,7 +164,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabelaTabela);
 
         panelTabelaTurniri.add(jScrollPane3);
-        jScrollPane3.setBounds(670, 70, 530, 330);
+        jScrollPane3.setBounds(20, 460, 570, 130);
 
         tabelaTurnira.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -247,19 +185,19 @@ public class FormaGlavna extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tabelaTurnira);
 
         panelTabelaTurniri.add(jScrollPane4);
-        jScrollPane4.setBounds(1250, 50, 220, 380);
+        jScrollPane4.setBounds(1020, 50, 350, 380);
 
         jLabel11.setText("Tabela:");
         panelTabelaTurniri.add(jLabel11);
-        jLabel11.setBounds(670, 40, 140, 16);
+        jLabel11.setBounds(20, 430, 280, 30);
 
         jLabel12.setText("Lista utakmica:");
         panelTabelaTurniri.add(jLabel12);
-        jLabel12.setBounds(20, 30, 87, 20);
+        jLabel12.setBounds(20, 20, 140, 30);
 
         jLabel13.setText("Lista turnira");
         panelTabelaTurniri.add(jLabel13);
-        jLabel13.setBounds(1250, 20, 180, 16);
+        jLabel13.setBounds(1020, 20, 180, 16);
 
         tabelaUcesnika.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -272,19 +210,21 @@ public class FormaGlavna extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaUcesnika.setSelectionForeground(new java.awt.Color(102, 204, 255));
+        tabelaUcesnika.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane6.setViewportView(tabelaUcesnika);
 
         panelTabelaTurniri.add(jScrollPane6);
-        jScrollPane6.setBounds(30, 480, 410, 140);
+        jScrollPane6.setBounds(610, 60, 390, 130);
 
         jLabel14.setText("Igraci:");
         panelTabelaTurniri.add(jLabel14);
-        jLabel14.setBounds(30, 450, 70, 20);
+        jLabel14.setBounds(610, 30, 70, 20);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         panelTabelaTurniri.add(jSeparator1);
-        jSeparator1.setBounds(1230, 20, 20, 430);
+        jSeparator1.setBounds(1010, 20, 20, 430);
 
         btnSacuvaj.setText("Sacuvaj");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +233,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             }
         });
         panelTabelaTurniri.add(btnSacuvaj);
-        btnSacuvaj.setBounds(410, 410, 170, 32);
+        btnSacuvaj.setBounds(420, 410, 170, 32);
 
         getContentPane().add(panelTabelaTurniri);
         panelTabelaTurniri.setBounds(10, 33, 1480, 950);
@@ -529,6 +469,78 @@ public class FormaGlavna extends javax.swing.JFrame {
         getContentPane().add(panelNapraviTurnir);
         panelNapraviTurnir.setBounds(12, 37, 1480, 950);
 
+        panelStatistikaIgraca.setLayout(null);
+
+        tabelaStatistika.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tabelaStatistika);
+        tabelaStatistika.setRowHeight(25);
+        tabelaStatistika.setFocusable(false);
+        tabelaStatistika.setShowVerticalLines(false);
+
+        tabelaStatistika.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        tabelaStatistika.getTableHeader().setOpaque(false);
+        tabelaStatistika.getTableHeader().setBackground(new Color(32, 136, 203));
+        tabelaStatistika.getTableHeader().setForeground(new Color(255, 255, 255));
+        tabelaStatistika.setRowHeight(25);
+
+        panelStatistikaIgraca.add(jScrollPane5);
+        jScrollPane5.setBounds(6, 74, 858, 217);
+
+        cmbIgracStatistika.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbIgracStatistika.setSelectedIndex(-1);
+        cmbIgracStatistika.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbIgracStatistikaItemStateChanged(evt);
+            }
+        });
+        panelStatistikaIgraca.add(cmbIgracStatistika);
+        cmbIgracStatistika.setBounds(197, 36, 273, 26);
+
+        jLabel8.setText("Igrac:");
+        panelStatistikaIgraca.add(jLabel8);
+        jLabel8.setBounds(6, 39, 173, 20);
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setText("LICNA STATISTIKA:");
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 40));
+
+        jLabel16.setText("Pobede:");
+        jPanel4.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 120, 40));
+
+        jLabel17.setText("Neresene:");
+        jPanel4.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 150, 40));
+
+        jLabel18.setText("Izgubljene:");
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, 40));
+
+        jLabel19.setText("Dati golovi:");
+        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 150, 40));
+
+        jLabel20.setText("Primljeni golovi:");
+        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 140, 40));
+        jPanel4.add(lblPrimljeni, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 140, 40));
+        jPanel4.add(lblDatiGolovi, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 150, 40));
+        jPanel4.add(lblIzgubljene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 80, 40));
+        jPanel4.add(lblNeresene, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 150, 40));
+        jPanel4.add(lblLicnePobede, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 120, 40));
+
+        panelStatistikaIgraca.add(jPanel4);
+        jPanel4.setBounds(190, 320, 600, 390);
+
+        getContentPane().add(panelStatistikaIgraca);
+        panelStatistikaIgraca.setBounds(6, 35, 1480, 950);
+
         btnNapraviTabeluMeni.setText("Kreiraj Turnir");
         btnNapraviTabeluMeni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -565,7 +577,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = new Ucesnik(-1, i, null, k, mtizt.getRowCount() + 1);
         mtizt.dodajUcesnika(u);
     }//GEN-LAST:event_btnDodajIgracaZaTurnirActionPerformed
-    
+
     private void btnObrisiIgracaIzListeZaTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
         int broj = tabelaIgracaNaTurniru.getSelectedRow();
         if (broj == -1) {
@@ -575,7 +587,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         Ucesnik u = mtizt.getLista().get(broj);
         mtizt.obirisIzTabele(u);
     }//GEN-LAST:event_btnObrisiIgracaIzListeZaTurnirActionPerformed
-    
+
     private void btnKreirajTurnirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajTurnirActionPerformed
         ArrayList<Ucesnik> listaUcesnika = (ArrayList<Ucesnik>) mtizt.getLista();
         String naziv = txtNazivTurnira.getText();
@@ -614,7 +626,7 @@ public class FormaGlavna extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         boolean uspesnoUtakmice = Kontroler.getInstance().unesiUtakmice(listaUtakmica, t);
         if (uspesnoTurnir && uspesnoUcesnici && uspesnoUtakmice) {
             JOptionPane.showMessageDialog(this, "Uspesno napravljen turnir!");
@@ -622,9 +634,9 @@ public class FormaGlavna extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "GRESKA!");
         }
         mtizt.obrisiTabelu();
-        
+
     }//GEN-LAST:event_btnKreirajTurnirActionPerformed
-    
+
     private void btnNapraviIgracaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviIgracaActionPerformed
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
@@ -649,7 +661,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "GRESKA! \nIgrac!");
     }//GEN-LAST:event_btnNapraviIgracaActionPerformed
-    
+
     private void btnNapraviKlubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviKlubActionPerformed
         String naziv = txtImeKluba.getText();
         Liga l = (Liga) cmbLiga.getSelectedItem();
@@ -664,28 +676,28 @@ public class FormaGlavna extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(this, "GRESKA!");
-        
+
     }//GEN-LAST:event_btnNapraviKlubActionPerformed
-    
+
     private void btnNapraviTabeluMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNapraviTabeluMeniActionPerformed
         panelNapraviTurnir.setVisible(true);
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }//GEN-LAST:event_btnNapraviTabeluMeniActionPerformed
-    
+
     private void cmbTabeleMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTabeleMeniActionPerformed
         panelNapraviTurnir.setVisible(false);
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(true);
         ucitajTurnire();
     }//GEN-LAST:event_cmbTabeleMeniActionPerformed
-    
+
     private void btnStatistikaMeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatistikaMeniActionPerformed
         panelNapraviTurnir.setVisible(false);
         panelStatistikaIgraca.setVisible(true);
         panelTabelaTurniri.setVisible(false);
     }//GEN-LAST:event_btnStatistikaMeniActionPerformed
-    
+
     private void tabelaTurniraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaTurniraMouseClicked
         int broj = tabelaTurnira.getSelectedRow();
         Turnir turnir = mtt.getLista().get(broj);
@@ -696,7 +708,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         mtb.setListaUtakmica(listaUtakmica);
         mtb.setListaUcesnika(listaUcesnika);
     }//GEN-LAST:event_tabelaTurniraMouseClicked
-    
+
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         ArrayList<Utakmica> lista = (ArrayList<Utakmica>) mtlu.getLista();
         // ArrayList<Igrac> listaIgraca = vratiMiListuIgraca(lista);
@@ -707,7 +719,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             pokupiRezultate(lista);
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
-    
+
     private void cmbIgracStatistikaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbIgracStatistikaItemStateChanged
         ModelTabelaStatistikeIgraca mtsi = new ModelTabelaStatistikeIgraca();
         Igrac i = (Igrac) cmbIgracStatistika.getSelectedItem();
@@ -833,7 +845,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         panelStatistikaIgraca.setVisible(false);
         panelTabelaTurniri.setVisible(false);
     }
-    
+
     private void ucitajMiSveKlubove() {
         cmbKlub.removeAllItems();
         ArrayList<Klub> klubovi = Kontroler.getInstance().vratiMiSveKlubove();
@@ -841,7 +853,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbKlub.addItem(klub);
         }
     }
-    
+
     private void ucitajMiSveIgrace() {
         cmbIgrac.removeAllItems();
         cmbIgracStatistika.removeAllItems();
@@ -851,7 +863,7 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbIgracStatistika.addItem(igrac);
         }
     }
-    
+
     private void ucitajMiSveLige() {
         cmbLiga.removeAllItems();
         ArrayList<Liga> lige = Kontroler.getInstance().vratiMiSveLige();
@@ -859,18 +871,18 @@ public class FormaGlavna extends javax.swing.JFrame {
             cmbLiga.addItem(liga);
         }
     }
-    
+
     private void ucitajModelTabele() {
         tabelaIgracaNaTurniru.setModel(mtizt);
     }
-    
+
     private void ucitajTurnire() {
         ArrayList<Turnir> lista = kontroler.Kontroler.getInstance().vratiMiSveTurnire();
         tabelaTurnira.setModel(mtt);
         mtt.setLista(lista);
         mtt.fireTableDataChanged();
     }
-    
+
     private ArrayList<Utakmica> napraviUtakmice(ArrayList<Ucesnik> listaUcesnika) {
         ArrayList<Utakmica> trazenaLista = new ArrayList<>();
         for (Ucesnik ucesnik : listaUcesnika) {
@@ -889,7 +901,7 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         return trazenaLista;
     }
-    
+
     private boolean daLiPostojiUListiUtakmice(Utakmica u, ArrayList<Utakmica> trazenaLista) {
         for (Utakmica utakmica : trazenaLista) {
             if (u.getDomacin().equals(utakmica.getDomacin()) && u.getGost().equals(utakmica.getGost())) {
@@ -898,14 +910,14 @@ public class FormaGlavna extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     private void ucitajModeleTabela() {
         tabelaTabela.setModel(mtb);
         tabelaUtakmica.setModel(mtlu);
         tabelaUcesnika.setModel(mtizt2);
         tabelaStatistika.setModel(mtizt);
     }
-    
+
     private void pokupiRezultate(ArrayList<Utakmica> lista) {
         ArrayList<Ucesnik> listaUcesnika = (ArrayList<Ucesnik>) mtizt2.getLista();
         mtb.setListaUcesnika(listaUcesnika);
@@ -925,24 +937,109 @@ public class FormaGlavna extends javax.swing.JFrame {
 //        return listaIgraca;
 //    }
     public void ulepsajTabelu(JTable tabela) {
-        tabela.setRowHeight(25);
         tabela.setFocusable(false);
         tabela.setShowVerticalLines(false);
-        tabela.setSelectionBackground(Color.LIGHT_GRAY);
+
         tabela.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         tabela.getTableHeader().setOpaque(false);
-        tabela.getTableHeader().setBackground(new Color(34, 47, 115));
-        tabela.getTableHeader().setBackground(Color.red);
-        tabela.getTableHeader().setForeground(new Color(34, 47, 115));
+        tabela.getTableHeader().setBackground(new Color(32, 136, 203));
+        tabela.getTableHeader().setForeground(new Color(255, 255, 255));
         tabela.setRowHeight(25);
     }
-    
+
     private void ulepsajTabele() {
+        /*
+        tabela lista igraca koja igra turnir
+         */
         ulepsajTabelu(tabelaIgracaNaTurniru);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(0).setResizable(false);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(2).setResizable(false);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(2).setMinWidth(200);
+        tabelaIgracaNaTurniru.getColumnModel().getColumn(2).setMaxWidth(200);
+        /*
+        tabela statistike igraca
+         */
         ulepsajTabelu(tabelaStatistika);
+        tabelaStatistika.getColumnModel().getColumn(0).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(2).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(3).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(4).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(5).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(6).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(7).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(8).setResizable(false);
+        tabelaStatistika.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(2).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(2).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(3).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(3).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(4).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(4).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(5).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(5).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(6).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(6).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(7).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(7).setMaxWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(8).setMinWidth(50);
+        tabelaStatistika.getColumnModel().getColumn(8).setMaxWidth(50);
+        /*
+        tabela Tabela turnira
+         */
         ulepsajTabelu(tabelaTabela);
+        tabelaTabela.getColumnModel().getColumn(0).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(1).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(2).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(3).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(4).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(5).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(6).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(7).setResizable(false);
+        tabelaTabela.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(2).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(2).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(3).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(3).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(4).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(4).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(5).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(5).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(6).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(6).setMaxWidth(50);
+        tabelaTabela.getColumnModel().getColumn(7).setMinWidth(50);
+        tabelaTabela.getColumnModel().getColumn(7).setMaxWidth(50);
         ulepsajTabelu(tabelaTurnira);
+        tabelaTurnira.getColumnModel().getColumn(0).setResizable(false);
+        tabelaTurnira.getColumnModel().getColumn(2).setResizable(false);
+        tabelaTurnira.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaTurnira.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaTurnira.getColumnModel().getColumn(2).setMinWidth(150);
+        tabelaTurnira.getColumnModel().getColumn(2).setMaxWidth(150);
         ulepsajTabelu(tabelaUcesnika);
+        tabelaUcesnika.getColumnModel().getColumn(0).setResizable(false);
+        tabelaUcesnika.getColumnModel().getColumn(2).setResizable(false);
+        tabelaUcesnika.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaUcesnika.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaUcesnika.getColumnModel().getColumn(2).setMinWidth(200);
+        tabelaUcesnika.getColumnModel().getColumn(2).setMaxWidth(200);
         ulepsajTabelu(tabelaUtakmica);
+        tabelaUtakmica.getColumnModel().getColumn(0).setResizable(false);
+        tabelaUtakmica.getColumnModel().getColumn(2).setResizable(false);
+        tabelaUtakmica.getColumnModel().getColumn(3).setResizable(false);
+        tabelaUtakmica.getColumnModel().getColumn(0).setMinWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(0).setMaxWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(1).setMinWidth(200);
+        tabelaUtakmica.getColumnModel().getColumn(1).setMaxWidth(250);
+        tabelaUtakmica.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(2).setMinWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(2).setMaxWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(3).setMinWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(3).setMaxWidth(50);
+        tabelaUtakmica.getColumnModel().getColumn(4).setMinWidth(200);
+        tabelaUtakmica.getColumnModel().getColumn(4).setMaxWidth(250);
     }
 }

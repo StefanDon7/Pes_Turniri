@@ -18,8 +18,9 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleListaTurnira extends AbstractTableModel {
 
     List<Turnir> lista = new ArrayList<Turnir>();
+    int broj = lista.size() + 1;
     SimpleDateFormat smf = new SimpleDateFormat("dd/MM/yyyy");
-    String[] kolone = {"Datum", "Naziv"};
+    String[] kolone = {"R.B", "Naziv", "Datum"};
 
     public ModelTabeleListaTurnira() {
         lista = new ArrayList<>();
@@ -41,9 +42,11 @@ public class ModelTabeleListaTurnira extends AbstractTableModel {
         Turnir t = lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return smf.format(t.getDatum());
+                return t.getId();
             case 1:
                 return t.getNaziv();
+            case 2:
+                return smf.format(t.getDatum());
             default:
                 return "";
         }
